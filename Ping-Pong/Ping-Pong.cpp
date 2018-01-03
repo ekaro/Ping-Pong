@@ -2,6 +2,7 @@
 #include <Windowsx.h>
 #include <windows.h>
 #include <tchar.h>
+#include "Paddle.h"
 
 
 // Forward declaration of functions included in this module:
@@ -10,6 +11,9 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 // Window properties
 int WindowWidth = 600;
 int WindowHeight = 700;
+
+Paddle LeftPaddle;
+Paddle RightPaddle;
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
@@ -112,7 +116,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 		hdc = BeginPaint(hWnd, &ps);
 
-
+		LeftPaddle.DrawPaddle(hdc, 50, 100);
+		RightPaddle.DrawPaddle(hdc, 50, 100);
 
 		EndPaint(hWnd, &ps);
 		break;
