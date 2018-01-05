@@ -6,8 +6,8 @@ class Paddle
 {
 public:
 	Paddle() = default;
-	void DrawPaddle(const HDC& hdc, int PadWidth, int PadHeight);
-	std::pair<int, int> GetClientDimensions(const HWND& hWnd);
+	void DrawPaddle(const HDC& hdc, int x, int y, int PadWidth, int PadHeight);
+	std::pair<int, int> GetClientDim(const HWND& hWnd);
 private:
 	int x = 0;
 	int y = 0;

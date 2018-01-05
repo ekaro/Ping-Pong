@@ -9,7 +9,7 @@
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 // Window properties
-int WindowWidth = 600;
+int WindowWidth = 1000;
 int WindowHeight = 700;
 
 Paddle LeftPaddle;
@@ -101,6 +101,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	PAINTSTRUCT ps;
 	HDC hdc;
 	TCHAR display_msg[] = _T("Message in window");
+	int PaddleWidth;
+	int PaddleHeight;
 
 	switch (message)
 	{
@@ -116,8 +118,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 		hdc = BeginPaint(hWnd, &ps);
 
-		LeftPaddle.DrawPaddle(hdc, 50, 100);
-		RightPaddle.DrawPaddle(hdc, 50, 100);
+		PaddleWidth = LeftPaddle.GetClientDim(hWnd).first / 20;
+		PaddleHeight = LeftPaddle.GetClientDim(hWnd).first / 10;
+
+		LeftPaddle.DrawPaddle(hdc, 0, 0, PaddleWidth, PaddleHeight);
+		RightPaddle.DrawPaddle(hdc, RightPaddle.GetClientDim(hWnd).first - PaddleWidth, 0, PaddleWidth, PaddleHeight);
 
 		EndPaint(hWnd, &ps);
 		break;
