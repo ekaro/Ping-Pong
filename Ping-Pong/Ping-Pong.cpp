@@ -2,7 +2,7 @@
 #include <Windowsx.h>
 #include <windows.h>
 #include <tchar.h>
-#include "Paddle.h"
+#include "Game.h"
 
 
 // Forward declaration of functions included in this module:
@@ -12,8 +12,7 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 int WindowWidth = 1000;
 int WindowHeight = 700;
 
-Paddle LeftPaddle;
-Paddle RightPaddle;
+Game PingPong;
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
@@ -118,11 +117,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 		hdc = BeginPaint(hWnd, &ps);
 
-		PaddleWidth = LeftPaddle.GetClientDim(hWnd).first / 20;
-		PaddleHeight = LeftPaddle.GetClientDim(hWnd).first / 10;
-
-		LeftPaddle.DrawPaddle(hdc, 0, 0, PaddleWidth, PaddleHeight);
-		RightPaddle.DrawPaddle(hdc, RightPaddle.GetClientDim(hWnd).first - PaddleWidth, 0, PaddleWidth, PaddleHeight);
+		PingPong.DrawPaddles(hdc, hWnd);
 
 		EndPaint(hWnd, &ps);
 		break;

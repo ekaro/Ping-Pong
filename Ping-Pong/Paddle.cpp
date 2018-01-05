@@ -1,22 +1,21 @@
 #include "Paddle.h"
-/*
-Paddle::Paddle()
-{
 
-}*/
-
-void Paddle::DrawPaddle(const HDC& hdc, int x, int y, int PadWidth, int PadHeight)
+void Paddle::DrawPaddle(const HDC& hdc, int x, int y)
 {
-	Rectangle(hdc, x, y, x + PadWidth, y + PadHeight);
+	Rectangle(hdc, x, y, x + Width, y + Height);
 }
 
-std::pair<int, int> Paddle::GetClientDim(const HWND& hWnd)
+void Paddle::SetWidth(int CurrentWidth)
 {
-	RECT ClientRect;
-	::GetClientRect(hWnd, &ClientRect);
+	Width = CurrentWidth;
+}
 
-	int CurrentWidth = ClientRect.right - ClientRect.left;
-	int CurrentHeight = ClientRect.bottom - ClientRect.top;
+void Paddle::SetHeight(int CurrentHeight)
+{
+	Height = CurrentHeight;
+}
 
-	return { CurrentWidth, CurrentHeight };
+int Paddle::GetWidth() const
+{
+	return Width;
 }
