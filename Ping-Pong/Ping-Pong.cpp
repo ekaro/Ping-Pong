@@ -119,7 +119,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 		PingPong.DrawPaddles(hdc, hWnd);
 		PingPong.DrawBall(hdc, hWnd);
-		PingPong.DrawLine(hdc, hWnd);
+		PingPong.DrawLines(hdc, hWnd);
 
 		EndPaint(hWnd, &ps);
 		break;
@@ -132,6 +132,22 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_SIZE:
 
 
+		break;
+
+	case WM_KEYDOWN:
+
+		switch (wParam)
+		{
+			case VK_DOWN:
+				
+				PingPong.MoveDown(hWnd);
+				break;
+
+			case VK_UP:
+
+				PingPong.MoveUp(hWnd);
+				break;
+		}
 		break;
 
 	case WM_DESTROY:

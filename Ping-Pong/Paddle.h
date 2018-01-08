@@ -9,7 +9,11 @@ public:
 	void DrawPaddle(const HDC& hdc, int x, int y);
 	void SetWidth(int Width);
 	void SetHeight(int Height);
+	void MoveDown();
+	void MoveUp();
 	int GetWidth() const;
+	int GetHeight() const;
+	int GetPos() const;
 private:
 	int x = 0;
 	int y = 0;
