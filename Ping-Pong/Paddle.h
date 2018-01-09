@@ -5,7 +5,7 @@
 class Paddle
 {
 public:
-	Paddle() = default;
+	Paddle();
 	void DrawPaddle(const HDC& hdc, int x, int y);
 	void SetWidth(int Width);
 	void SetHeight(int Height);
@@ -16,10 +16,10 @@ public:
 	int GetOldPos() const;
 	int GetPos() const;
 private:
-	int x = 0;
-	int y = 0;
+	int x;
+	int y;
 	int oldy;
-	int Width = 50;
-	int Height = 100;
+	int Width;
+	int Height;
 	int Speed = 20;
 };

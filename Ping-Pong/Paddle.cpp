@@ -1,5 +1,10 @@
 #include "Paddle.h"
 
+Paddle::Paddle()
+{
+	Speed = 20;
+}
+
 void Paddle::DrawPaddle(const HDC& hdc, int x, int y)
 {
 	Rectangle(hdc, x, y, x + Width, y + Height);
@@ -18,13 +23,13 @@ void Paddle::SetHeight(int CurrentHeight)
 void Paddle::MoveDown()
 {
 	oldy = y;
-	y = y + 20;
+	y = y + Speed;
 }
 
 void Paddle::MoveUp()
 {
 	oldy = y;
-	y = y - 20;
+	y = y - Speed;
 }
 
 int Paddle::GetPos() const
