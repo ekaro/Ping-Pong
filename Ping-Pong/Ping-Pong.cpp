@@ -78,6 +78,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		return 1;
 	}
+	
+	PingPong.SpawnBall(hWnd);
 
 	ShowWindow(hWnd, nCmdShow);
 	UpdateWindow(hWnd);
@@ -117,9 +119,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 		hdc = BeginPaint(hWnd, &ps);
 
-		PingPong.DrawPaddles(hdc, hWnd);
+		PingPong.DrawPaddles(hdc, hWnd);		
 		PingPong.DrawBall(hdc, hWnd);
 		PingPong.DrawLines(hdc, hWnd);
+
+		PingPong.MoveBall(hWnd);
 
 		EndPaint(hWnd, &ps);
 		break;

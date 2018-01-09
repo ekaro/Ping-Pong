@@ -1,6 +1,7 @@
 #include "Game.h"
 #include <Gdiplus.h>
 
+
 void Game::DrawPaddles(const HDC& hdc, const HWND& hWnd)
 {
 	LeftPaddle.SetWidth(GetClientDim(hWnd).first / 30);
@@ -22,9 +23,12 @@ void Game::DrawPaddles(const HDC& hdc, const HWND& hWnd)
 
 void Game::DrawBall(const HDC & hdc, const HWND & hWnd)
 {
-	Ball.SetWidth(GetClientDim(hWnd).first / 20);
-	Ball.SetHeight(GetClientDim(hWnd).first / 20);
-	Ball.DrawBall(hdc, (GetClientDim(hWnd).first / 2 - GetClientDim(hWnd).first / 40), (GetClientDim(hWnd).second / 2 - GetClientDim(hWnd).first / 40));
+	Ball.SetRadius(GetClientDim(hWnd).first / 40);
+	SelectObject(hdc, GetStockObject(DC_BRUSH));
+	//SetDCBrushColor(hdc, Red);
+	//Ball.DrawBall(hdc, Ball.GetOldPos().first, Ball.GetOldPos().second);
+	SetDCBrushColor(hdc, White);
+	Ball.DrawBall(hdc, Ball.GetPos().first, Ball.GetPos().second);
 }
 
 void Game::DrawLines(const HDC & hdc, const HWND & hWnd)
@@ -102,4 +106,16 @@ void Game::MoveLPUp(const HWND& hWnd)
 
 		InvalidateRect(hWnd, &LeftPaddleRect, false);
 	}
+}
+
+void Game::MoveBall(const HWND& hWnd)
+{
+	Ball.MoveBall();
+	BallRect = { Ball.GetPos().first, Ball.GetPos().second, Ball.GetPos().first + Ball.GetRadius()*2, Ball.GetPos().second + Ball.GetRadius()*2 };
+	InvalidateRect(hWnd, &BallRect, false);
+}
+
+void Game::SpawnBall(const HWND& hWnd)
+{
+	Ball.SetPos((GetClientDim(hWnd).first / 2 - GetClientDim(hWnd).first / 40), (GetClientDim(hWnd).second / 2 - GetClientDim(hWnd).first / 40));
 }

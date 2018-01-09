@@ -2,20 +2,43 @@
 
 void Ball::DrawBall(const HDC& hdc, int x, int y)
 {
-	Ellipse(hdc, x, y, x + Width, y + Height);
+	BallPos[0] = x;
+	BallPos[1] = y;
+	Ellipse(hdc, BallPos[0], BallPos[1], BallPos[0] + BallRadius*2, BallPos[1] + BallRadius*2);
 }
 
-void Ball::SetWidth(int CurrentWidth)
+void Ball::SetPos(int x, int y)
 {
-	Width = CurrentWidth;
+	BallPos[0] = x;
+	BallPos[1] = y;
+	OldBallPos[0] = x;
+	OldBallPos[1] = y;
 }
 
-void Ball::SetHeight(int CurrentHeight)
+void Ball::SetRadius(int Radius)
 {
-	Height = CurrentHeight;
+	BallRadius = Radius;
 }
 
-int Ball::GetWidth() const
+void Ball::MoveBall()
 {
-	return Width;
+	OldBallPos[0] = BallPos[0];
+	OldBallPos[1] = BallPos[1];
+	BallPos[0] = BallPos[0] - 10;
+	BallPos[1] = BallPos[1] - 10;
+}
+
+std::pair<int, int> Ball::GetPos() const
+{
+	return {BallPos[0], BallPos[1]};
+}
+
+std::pair<int, int> Ball::GetOldPos() const
+{
+	return { OldBallPos[0], OldBallPos[1] };
+}
+
+int Ball::GetRadius() const
+{
+	return BallRadius;
 }

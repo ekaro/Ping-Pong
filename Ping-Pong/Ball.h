@@ -1,20 +1,21 @@
 #pragma once
 #include <windows.h>
+#include <array>
 
 class Ball
 {
 public:
 	void DrawBall(const HDC& hdc, int x, int y);
-	void SetWidth(int Width);
-	void SetHeight(int Height);
-	int GetWidth() const;
+	void SetRadius(int Radius);
+	void SetPos(int x, int y);
+	void MoveBall();
+	std::pair<int, int> GetPos() const;
+	std::pair<int, int> GetOldPos() const;
+	int GetRadius() const;
 private:
-	int x = 0;
-	int y = 0;
-	int Width = 50;
-	int Height = 100;
 	int BallRadius;
-	int BallVell;
-	int BallPos;
+	int BallVel;
+	int BallPos[2];
+	int OldBallPos[2];
 	int BallSpeed;
 };

@@ -13,11 +13,15 @@ public:
 	void MoveRPUp(const HWND& hWnd);
 	void MoveLPDown(const HWND& hWnd);
 	void MoveLPUp(const HWND& hWnd);
+	void MoveBall(const HWND& hWnd);
+	void SpawnBall(const HWND& hWnd);
 private:
 	static constexpr COLORREF White = (RGB(255, 255, 255));
 	static constexpr COLORREF Black = (RGB(0, 0, 0));
+	static constexpr COLORREF Red = (RGB(255, 0, 0));
 	RECT RightPaddleRect;
 	RECT LeftPaddleRect;
+	RECT BallRect;
 	Paddle LeftPaddle;
 	Paddle RightPaddle;
 	Ball Ball;
