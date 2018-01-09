@@ -5,11 +5,14 @@ void Game::DrawPaddles(const HDC& hdc, const HWND& hWnd)
 {
 	LeftPaddle.SetWidth(GetClientDim(hWnd).first / 30);
 	LeftPaddle.SetHeight(GetClientDim(hWnd).second / 5);
-	LeftPaddle.DrawPaddle(hdc, 0, 0);
+	SelectObject(hdc, GetStockObject(DC_BRUSH));
+	SetDCBrushColor(hdc, Black);
+	LeftPaddle.DrawPaddle(hdc, 0, LeftPaddle.GetOldPos());
+	SetDCBrushColor(hdc, White);
+	LeftPaddle.DrawPaddle(hdc, 0, LeftPaddle.GetPos());
 
 	RightPaddle.SetWidth(GetClientDim(hWnd).first / 30);
 	RightPaddle.SetHeight(GetClientDim(hWnd).second / 5);
-
 	SelectObject(hdc, GetStockObject(DC_BRUSH));
 	SetDCBrushColor(hdc, Black);
 	RightPaddle.DrawPaddle(hdc, GetClientDim(hWnd).first - RightPaddle.GetWidth(), RightPaddle.GetOldPos());
@@ -53,7 +56,7 @@ std::pair<int, int> Game::GetClientDim(const HWND& hWnd)
 	return { CurrentWidth, CurrentHeight };
 }
 
-void Game::MoveDown(const HWND& hWnd)
+void Game::MoveRPDown(const HWND& hWnd)
 {
 	if (RightPaddle.GetPos() <= GetClientDim(hWnd).second - RightPaddle.GetHeight() - 10)
 	{
@@ -65,7 +68,7 @@ void Game::MoveDown(const HWND& hWnd)
 	}
 }
 
-void Game::MoveUp(const HWND& hWnd)
+void Game::MoveRPUp(const HWND& hWnd)
 {
 	if (RightPaddle.GetPos() >= 10)
 	{
@@ -74,5 +77,29 @@ void Game::MoveUp(const HWND& hWnd)
 		RightPaddleRect = { GetClientDim(hWnd).first - RightPaddle.GetWidth(), 0, GetClientDim(hWnd).first, GetClientDim(hWnd).second };
 
 		InvalidateRect(hWnd, &RightPaddleRect, false);
+	}
+}
+
+void Game::MoveLPDown(const HWND& hWnd)
+{
+	if (LeftPaddle.GetPos() <= GetClientDim(hWnd).second - LeftPaddle.GetHeight() - 10)
+	{
+		LeftPaddle.MoveDown();
+
+		LeftPaddleRect = { 0, 0, LeftPaddle.GetWidth(), GetClientDim(hWnd).second };
+
+		InvalidateRect(hWnd, &LeftPaddleRect, false);
+	}
+}
+
+void Game::MoveLPUp(const HWND& hWnd)
+{
+	if (LeftPaddle.GetPos() >= 10)
+	{
+		LeftPaddle.MoveUp();
+
+		LeftPaddleRect = { 0, 0, LeftPaddle.GetWidth(), GetClientDim(hWnd).second };
+
+		InvalidateRect(hWnd, &LeftPaddleRect, false);
 	}
 }

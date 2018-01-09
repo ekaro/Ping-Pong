@@ -138,14 +138,24 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 		switch (wParam)
 		{
-			case VK_DOWN:
+			case 0x28:
 				
-				PingPong.MoveDown(hWnd);
+				PingPong.MoveRPDown(hWnd);
 				break;
 
-			case VK_UP:
+			case 0x26:
 
-				PingPong.MoveUp(hWnd);
+				PingPong.MoveRPUp(hWnd);
+				break;
+
+			case 0x57:
+
+				PingPong.MoveLPUp(hWnd);
+				break;
+
+			case 0x53:
+				
+				PingPong.MoveLPDown(hWnd);
 				break;
 		}
 		break;

@@ -9,12 +9,15 @@ public:
 	void DrawPaddles(const HDC& hdc, const HWND& hWnd);
 	void DrawBall(const HDC& hdc, const HWND& hWnd);
 	void DrawLines(const HDC& hdc, const HWND& hWnd);
-	void MoveDown(const HWND& hWnd);
-	void MoveUp(const HWND& hWnd);
+	void MoveRPDown(const HWND& hWnd);
+	void MoveRPUp(const HWND& hWnd);
+	void MoveLPDown(const HWND& hWnd);
+	void MoveLPUp(const HWND& hWnd);
 private:
 	static constexpr COLORREF White = (RGB(255, 255, 255));
 	static constexpr COLORREF Black = (RGB(0, 0, 0));
 	RECT RightPaddleRect;
+	RECT LeftPaddleRect;
 	Paddle LeftPaddle;
 	Paddle RightPaddle;
 	Ball Ball;

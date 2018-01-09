@@ -18,13 +18,13 @@ void Paddle::SetHeight(int CurrentHeight)
 void Paddle::MoveDown()
 {
 	oldy = y;
-	y = y + 10;
+	y = y + 20;
 }
 
 void Paddle::MoveUp()
 {
 	oldy = y;
-	y = y - 10;		
+	y = y - 20;
 }
 
 int Paddle::GetPos() const

@@ -21,5 +21,5 @@ private:
 	int oldy;
 	int Width = 50;
 	int Height = 100;
-	int Speed;
+	int Speed = 20;
 };
