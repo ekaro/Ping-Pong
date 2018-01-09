@@ -13,10 +13,12 @@ public:
 	void MoveUp();
 	int GetWidth() const;
 	int GetHeight() const;
+	int GetOldPos() const;
 	int GetPos() const;
 private:
 	int x = 0;
 	int y = 0;
+	int oldy;
 	int Width = 50;
 	int Height = 100;
 	int Speed;

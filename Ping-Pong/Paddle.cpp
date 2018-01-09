@@ -1,9 +1,7 @@
 #include "Paddle.h"
 
-void Paddle::DrawPaddle(const HDC& hdc, int xloc, int yloc)
+void Paddle::DrawPaddle(const HDC& hdc, int x, int y)
 {
-	x = xloc;
-	y = yloc;
 	Rectangle(hdc, x, y, x + Width, y + Height);
 }
 
@@ -19,17 +17,24 @@ void Paddle::SetHeight(int CurrentHeight)
 
 void Paddle::MoveDown()
 {
+	oldy = y;
 	y = y + 10;
 }
 
 void Paddle::MoveUp()
 {
+	oldy = y;
 	y = y - 10;		
 }
 
 int Paddle::GetPos() const
 {
 	return y;
+}
+
+int Paddle::GetOldPos() const
+{
+	return oldy;
 }
 
 int Paddle::GetWidth() const

@@ -9,6 +9,11 @@ void Game::DrawPaddles(const HDC& hdc, const HWND& hWnd)
 
 	RightPaddle.SetWidth(GetClientDim(hWnd).first / 30);
 	RightPaddle.SetHeight(GetClientDim(hWnd).second / 5);
+
+	SelectObject(hdc, GetStockObject(DC_BRUSH));
+	SetDCBrushColor(hdc, Black);
+	RightPaddle.DrawPaddle(hdc, GetClientDim(hWnd).first - RightPaddle.GetWidth(), RightPaddle.GetOldPos());
+	SetDCBrushColor(hdc, White);
 	RightPaddle.DrawPaddle(hdc, GetClientDim(hWnd).first - RightPaddle.GetWidth(), RightPaddle.GetPos());
 }
 
