@@ -25,8 +25,8 @@ void Game::DrawBall(const HDC & hdc, const HWND & hWnd)
 {
 	Ball.SetRadius(GetClientDim(hWnd).first / 40);
 	SelectObject(hdc, GetStockObject(DC_BRUSH));
-	//SetDCBrushColor(hdc, Red);
-	//Ball.DrawBall(hdc, Ball.GetOldPos().first, Ball.GetOldPos().second);
+	SetDCBrushColor(hdc, Black);
+	Ball.DrawBall(hdc, Ball.GetOldPos().first, Ball.GetOldPos().second);
 	SetDCBrushColor(hdc, White);
 	Ball.DrawBall(hdc, Ball.GetPos().first, Ball.GetPos().second);
 }
@@ -37,12 +37,12 @@ void Game::DrawLines(const HDC & hdc, const HWND & hWnd)
 	{
 		SetPixel(hdc, LeftPaddle.GetWidth() - 1, i, White);
 	}
-	
+
 	for (int i = 0; i < GetClientDim(hWnd).second; i++)
 	{
 		SetPixel(hdc, GetClientDim(hWnd).first / 2, i, White);
 	}
-	
+
 	for (int i = 0; i < GetClientDim(hWnd).second; i++)
 	{
 		SetPixel(hdc, GetClientDim(hWnd).first - RightPaddle.GetWidth(), i, White);
@@ -111,8 +111,19 @@ void Game::MoveLPUp(const HWND& hWnd)
 void Game::MoveBall(const HWND& hWnd)
 {
 	Ball.MoveBall();
-	BallRect = { Ball.GetPos().first, Ball.GetPos().second, Ball.GetPos().first + Ball.GetRadius()*2, Ball.GetPos().second + Ball.GetRadius()*2 };
+	//BallRect = { Ball.GetPos().first, Ball.GetPos().second, Ball.GetPos().first + Ball.GetRadius()*2, Ball.GetPos().second + Ball.GetRadius()*2 };
+	BallRect = { LeftPaddle.GetWidth(), 0, GetClientDim(hWnd).first - RightPaddle.GetWidth(), GetClientDim(hWnd).second };
 	InvalidateRect(hWnd, &BallRect, false);
+
+	if (Ball.GetPos().second <= 0 || Ball.GetPos().second + Ball.GetRadius()*2 >= GetClientDim(hWnd).second)
+	{
+		Ball.SwitchYVel();
+    }
+
+	if (Ball.GetPos().first <= LeftPaddle.GetWidth() || Ball.GetPos().first + Ball.GetRadius() * 2 >= GetClientDim(hWnd).first - RightPaddle.GetWidth())
+	{
+		Ball.SwitchXVel();
+	}
 }
 
 void Game::SpawnBall(const HWND& hWnd)

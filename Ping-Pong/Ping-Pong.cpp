@@ -120,9 +120,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		hdc = BeginPaint(hWnd, &ps);
 
 		PingPong.DrawPaddles(hdc, hWnd);		
-		PingPong.DrawBall(hdc, hWnd);
 		PingPong.DrawLines(hdc, hWnd);
-
+		PingPong.DrawBall(hdc, hWnd);
 		PingPong.MoveBall(hWnd);
 
 		EndPaint(hWnd, &ps);

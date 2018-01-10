@@ -22,6 +22,7 @@ private:
 	RECT RightPaddleRect;
 	RECT LeftPaddleRect;
 	RECT BallRect;
+	RECT OldBallRect;
 	Paddle LeftPaddle;
 	Paddle RightPaddle;
 	Ball Ball;
