@@ -115,14 +115,37 @@ void Game::MoveBall(const HWND& hWnd)
 	BallRect = { LeftPaddle.GetWidth(), 0, GetClientDim(hWnd).first - RightPaddle.GetWidth(), GetClientDim(hWnd).second };
 	InvalidateRect(hWnd, &BallRect, false);
 
-	if (Ball.GetPos().second <= 0 || Ball.GetPos().second + Ball.GetRadius()*2 >= GetClientDim(hWnd).second)
+	if (Ball.GetPos().second <= 0)
 	{
 		Ball.SwitchYVel();
     }
-
-	if (Ball.GetPos().first <= LeftPaddle.GetWidth() || Ball.GetPos().first + Ball.GetRadius() * 2 >= GetClientDim(hWnd).first - RightPaddle.GetWidth())
+	if (Ball.GetPos().second + Ball.GetRadius() * 2 >= GetClientDim(hWnd).second)
 	{
-		Ball.SwitchXVel();
+		Ball.SwitchYVel();
+	}
+
+	if (Ball.GetPos().first <= LeftPaddle.GetWidth())
+	{
+		if (LeftPaddle.GetPos() <= (Ball.GetPos().second + Ball.GetRadius()) && (Ball.GetPos().second + Ball.GetRadius()) <= (LeftPaddle.GetPos() + LeftPaddle.GetHeight()))
+		{
+			Ball.SwitchXVel();
+		}
+		else
+		{
+			SpawnBall(hWnd);
+		}
+	}
+
+	if (Ball.GetPos().first + Ball.GetRadius() * 2 >= GetClientDim(hWnd).first - RightPaddle.GetWidth())
+	{
+		if (RightPaddle.GetPos() <= (Ball.GetPos().second + Ball.GetRadius()) && (Ball.GetPos().second + Ball.GetRadius()) <= (RightPaddle.GetPos() + RightPaddle.GetHeight()))
+		{
+			Ball.SwitchXVel();
+		}
+		else
+		{
+			SpawnBall(hWnd);
+		}
 	}
 }
 
