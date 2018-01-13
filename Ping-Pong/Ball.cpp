@@ -5,12 +5,17 @@ void Ball::DrawBall(const HDC& hdc, int x, int y)
 	Ellipse(hdc, x, y, x + BallRadius*2, y + BallRadius*2);
 }
 
+void Ball::RemoveBall(const HDC& hdc, int x, int y)
+{
+	Ellipse(hdc, x - 1, y - 1, x + BallRadius * 2 + 1, y + BallRadius * 2 + 1);
+}
+
 void Ball::SetPos(int x, int y)
 {
+    OldBallPos[0] = BallPos[0];
+	OldBallPos[1] = BallPos[1];
 	BallPos[0] = x;
 	BallPos[1] = y;
-	OldBallPos[0] = BallPos[0];
-	OldBallPos[1] = BallPos[1];
 	BallVel[0] = 1;
 	BallVel[1] = 1;
 }

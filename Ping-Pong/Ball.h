@@ -6,6 +6,7 @@ class Ball
 {
 public:
 	void DrawBall(const HDC& hdc, int x, int y);
+	void RemoveBall(const HDC& hdc, int x, int y);
 	void SetRadius(int Radius);
 	void SetPos(int x, int y);
 	void SwitchYVel();
@@ -19,5 +20,4 @@ private:
 	int BallVel[2];
 	int BallPos[2];
 	int OldBallPos[2];
-	int BallSpeed;
 };

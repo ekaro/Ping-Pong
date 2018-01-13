@@ -79,8 +79,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		return 1;
 	}
 	
-	PingPong.SpawnBall(hWnd);
-
 	ShowWindow(hWnd, nCmdShow);
 	UpdateWindow(hWnd);
 
@@ -102,16 +100,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	PAINTSTRUCT ps;
 	HDC hdc;
 	TCHAR display_msg[] = _T("Message in window");
-	int PaddleWidth;
-	int PaddleHeight;
 
 	switch (message)
 	{
 	case WM_CREATE:
 
+		PingPong.SpawnBall(hWnd);
 
 	case WM_COMMAND:
-
 
 		break;
 
@@ -119,9 +115,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 		hdc = BeginPaint(hWnd, &ps);
 
-		PingPong.DrawPaddles(hdc, hWnd);		
-		PingPong.DrawLines(hdc, hWnd);
 		PingPong.DrawBall(hdc, hWnd);
+		PingPong.DrawPaddles(hdc, hWnd);
+		PingPong.DrawLines(hdc, hWnd);		
 		PingPong.MoveBall(hWnd);
 
 		EndPaint(hWnd, &ps);

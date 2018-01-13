@@ -1,7 +1,6 @@
 #include "Game.h"
 #include <Gdiplus.h>
 
-
 void Game::DrawPaddles(const HDC& hdc, const HWND& hWnd)
 {
 	LeftPaddle.SetWidth(GetClientDim(hWnd).first / 30);
@@ -26,7 +25,7 @@ void Game::DrawBall(const HDC & hdc, const HWND & hWnd)
 	Ball.SetRadius(GetClientDim(hWnd).first / 40);
 	SelectObject(hdc, GetStockObject(DC_BRUSH));
 	SetDCBrushColor(hdc, Black);
-	Ball.DrawBall(hdc, Ball.GetOldPos().first, Ball.GetOldPos().second);
+	Ball.RemoveBall(hdc, Ball.GetOldPos().first, Ball.GetOldPos().second);
 	SetDCBrushColor(hdc, White);
 	Ball.DrawBall(hdc, Ball.GetPos().first, Ball.GetPos().second);
 }
