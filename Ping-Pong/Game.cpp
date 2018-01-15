@@ -1,5 +1,11 @@
 #include "Game.h"
 #include <Gdiplus.h>
+#include <windows.h>
+#include <vector>
+#include <random>
+#include <tchar.h>
+#include <string> 
+#include <array>
 
 void Game::DrawPaddles(const HDC& hdc, const HWND& hWnd)
 {
@@ -46,6 +52,26 @@ void Game::DrawLines(const HDC & hdc, const HWND & hWnd)
 	{
 		SetPixel(hdc, GetClientDim(hWnd).first - RightPaddle.GetWidth(), i, White);
 	}
+}
+
+void Game::DrawScores(const HDC & hdc, const HWND & hWnd)
+{
+	ScoreNumber = std::to_wstring(LeftScore);
+
+	int CurrentHeight = GetClientDim(hWnd).second;
+	int FontHeight = CurrentHeight / 10;
+
+	memset(&logFont, 0, sizeof(logFont));
+	logFont.lfHeight = FontHeight;
+	ScoreFont = CreateFontIndirect(&logFont);
+
+	SetTextColor(hdc, RGB(0, 255, 0));
+	SetBkColor(hdc, RGB(0, 0, 0));
+	SelectObject(hdc, ScoreFont);
+	TextOut(hdc, GetClientDim(hWnd).first / 4, GetClientDim(hWnd).second / 20, ScoreMsg, _tcslen(ScoreMsg));
+	TextOut(hdc, GetClientDim(hWnd).first / 4 * 3, GetClientDim(hWnd).second / 20, ScoreMsg, _tcslen(ScoreMsg));
+
+	DeleteObject(ScoreFont);
 }
 
 std::pair<int, int> Game::GetClientDim(const HWND& hWnd)
@@ -132,6 +158,7 @@ void Game::MoveBall(const HWND& hWnd)
 		else
 		{
 			SpawnBall(hWnd);
+			RightScore++;
 		}
 	}
 
@@ -144,6 +171,7 @@ void Game::MoveBall(const HWND& hWnd)
 		else
 		{
 			SpawnBall(hWnd);
+			LeftScore++;
 		}
 	}
 }

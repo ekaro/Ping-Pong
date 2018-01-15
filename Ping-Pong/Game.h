@@ -1,6 +1,7 @@
 #pragma once
 #include "Paddle.h"
 #include "Ball.h"
+#include <tchar.h>
 
 class Game
 {
@@ -9,6 +10,7 @@ public:
 	void DrawPaddles(const HDC& hdc, const HWND& hWnd);
 	void DrawBall(const HDC& hdc, const HWND& hWnd);
 	void DrawLines(const HDC& hdc, const HWND& hWnd);
+	void DrawScores(const HDC& hdc, const HWND& hWnd);
 	void MoveRPDown(const HWND& hWnd);
 	void MoveRPUp(const HWND& hWnd);
 	void MoveLPDown(const HWND& hWnd);
@@ -19,6 +21,12 @@ private:
 	static constexpr COLORREF White = (RGB(255, 255, 255));
 	static constexpr COLORREF Black = (RGB(0, 0, 0));
 	static constexpr COLORREF Red = (RGB(255, 0, 0));
+	int LeftScore;
+	int RightScore;
+	HFONT ScoreFont;
+	LOGFONT logFont;
+	std::wstring ScoreNumber;
+	static constexpr TCHAR ScoreMsg[] = _T("10");
 	RECT RightPaddleRect;
 	RECT LeftPaddleRect;
 	RECT BallRect;
