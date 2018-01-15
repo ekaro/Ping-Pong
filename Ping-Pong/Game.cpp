@@ -1,9 +1,9 @@
 #include "Game.h"
 #include <Gdiplus.h>
+#include <tchar.h>
 #include <windows.h>
 #include <vector>
 #include <random>
-#include <tchar.h>
 #include <string> 
 #include <array>
 
@@ -56,7 +56,8 @@ void Game::DrawLines(const HDC & hdc, const HWND & hWnd)
 
 void Game::DrawScores(const HDC & hdc, const HWND & hWnd)
 {
-	ScoreNumber = std::to_wstring(LeftScore);
+	LeftScoreNumber = std::to_string(LeftScore);
+	RightScoreNumber = std::to_string(RightScore);
 
 	int CurrentHeight = GetClientDim(hWnd).second;
 	int FontHeight = CurrentHeight / 10;
@@ -65,11 +66,11 @@ void Game::DrawScores(const HDC & hdc, const HWND & hWnd)
 	logFont.lfHeight = FontHeight;
 	ScoreFont = CreateFontIndirect(&logFont);
 
-	SetTextColor(hdc, RGB(0, 255, 0));
+	SetTextColor(hdc, RGB(255, 255, 255));
 	SetBkColor(hdc, RGB(0, 0, 0));
 	SelectObject(hdc, ScoreFont);
-	TextOut(hdc, GetClientDim(hWnd).first / 4, GetClientDim(hWnd).second / 20, ScoreMsg, _tcslen(ScoreMsg));
-	TextOut(hdc, GetClientDim(hWnd).first / 4 * 3, GetClientDim(hWnd).second / 20, ScoreMsg, _tcslen(ScoreMsg));
+	TextOut(hdc, GetClientDim(hWnd).first / 4, GetClientDim(hWnd).second / 20, LeftScoreNumber.c_str(), _tcslen(LeftScoreNumber.c_str()));
+	TextOut(hdc, GetClientDim(hWnd).first / 4 * 3, GetClientDim(hWnd).second / 20, RightScoreNumber.c_str(), _tcslen(RightScoreNumber.c_str()));
 
 	DeleteObject(ScoreFont);
 }

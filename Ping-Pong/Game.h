@@ -25,7 +25,8 @@ private:
 	int RightScore;
 	HFONT ScoreFont;
 	LOGFONT logFont;
-	std::wstring ScoreNumber;
+	std::string LeftScoreNumber;
+	std::string RightScoreNumber;
 	static constexpr TCHAR ScoreMsg[] = _T("10");
 	RECT RightPaddleRect;
 	RECT LeftPaddleRect;
