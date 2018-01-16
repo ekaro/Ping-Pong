@@ -7,6 +7,7 @@
 #include <string> 
 #include <array>
 
+
 void Game::DrawPaddles(const HDC& hdc, const HWND& hWnd)
 {
 	LeftPaddle.SetWidth(GetClientDim(hWnd).first / 30);
@@ -79,6 +80,11 @@ std::pair<int, int> Game::GetClientDim(const HWND& hWnd)
 {
 	RECT ClientRect;
 	::GetClientRect(hWnd, &ClientRect);
+
+	DWORD dwStyle = GetWindowLongPtr(hWnd, GWL_STYLE);
+	DWORD dwExStyle = GetWindowLongPtr(hWnd, GWL_EXSTYLE);
+
+	AdjustWindowRectEx(&ClientRect, dwStyle, FALSE, dwExStyle);
 
 	int CurrentWidth = ClientRect.right - ClientRect.left;
 	int CurrentHeight = ClientRect.bottom - ClientRect.top;
@@ -180,4 +186,7 @@ void Game::MoveBall(const HWND& hWnd)
 void Game::SpawnBall(const HWND& hWnd)
 {
 	Ball.SetPos((GetClientDim(hWnd).first / 2 - GetClientDim(hWnd).first / 40), (GetClientDim(hWnd).second / 2 - GetClientDim(hWnd).first / 40));
+	int dim = GetClientDim(hWnd).first + GetClientDim(hWnd).second;
+	int vel = (dim / 1800);
+	Ball.SetVel(vel);
 }

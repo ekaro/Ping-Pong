@@ -16,8 +16,6 @@ void Ball::SetPos(int x, int y)
 	OldBallPos[1] = BallPos[1];
 	BallPos[0] = x;
 	BallPos[1] = y;
-	BallVel[0] = 1;
-	BallVel[1] = 1;
 }
 
 void Ball::SetRadius(int Radius)
@@ -56,4 +54,10 @@ void Ball::SwitchYVel()
 void Ball::SwitchXVel()
 {
 	BallVel[0] *= -1;
+}
+
+void Ball::SetVel(int vel)
+{
+	BallVel[0] = vel;
+	BallVel[1] = vel;
 }

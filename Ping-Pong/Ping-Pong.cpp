@@ -10,7 +10,10 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 // Window properties
 int WindowWidth = 1000;
-int WindowHeight = 700;
+int WindowHeight = 800;
+
+int xPos;
+int yPos;
 
 Game PingPong;
 
@@ -125,7 +128,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 
 	case WM_LBUTTONDOWN:
-
+		xPos = GET_X_LPARAM(lParam);
+		yPos = GET_Y_LPARAM(lParam);
 
 		break;
 
