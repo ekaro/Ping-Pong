@@ -199,7 +199,9 @@ void Game::SpawnBall(const HWND& hWnd)
 	int posx = (GetClientDimEx(hWnd).first / 2 - GetClientDimEx(hWnd).first / 40);  // GetClientDimEx(hWnd).first / 40 is ball radius
 	int posy = (GetClientDimEx(hWnd).second / 2 - GetClientDimEx(hWnd).first / 40);
 	Ball.SetPos(posx, posy);
-	int dim = GetClientDimEx(hWnd).first + GetClientDimEx(hWnd).second;
-	int vel = (dim / 1800);
+	int x = GetClientDimEx(hWnd).first;
+	int y = GetClientDimEx(hWnd).second;
+	int dim = x + y;
+	float vel = (dim / 1800.0);
 	Ball.SetVel(vel);
 }

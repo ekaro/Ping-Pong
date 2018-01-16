@@ -9,8 +9,8 @@
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 // Window properties
-int WindowWidth = 1000;
-int WindowHeight = 800;
+int WindowWidth = 140;
+int WindowHeight = 40;
 
 int xPos;
 int yPos;

@@ -56,7 +56,7 @@ void Ball::SwitchXVel()
 	BallVel[0] *= -1;
 }
 
-void Ball::SetVel(int vel)
+void Ball::SetVel(float vel)
 {
 	BallVel[0] = vel;
 	BallVel[1] = vel;
