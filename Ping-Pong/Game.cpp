@@ -81,6 +81,17 @@ std::pair<int, int> Game::GetClientDim(const HWND& hWnd)
 	RECT ClientRect;
 	::GetClientRect(hWnd, &ClientRect);
 
+	int CurrentWidth = ClientRect.right - ClientRect.left;
+	int CurrentHeight = ClientRect.bottom - ClientRect.top;
+
+	return { CurrentWidth, CurrentHeight };
+}
+
+std::pair<int, int> Game::GetClientDimEx(const HWND& hWnd)
+{
+	RECT ClientRect;
+	::GetClientRect(hWnd, &ClientRect);
+
 	DWORD dwStyle = GetWindowLongPtr(hWnd, GWL_STYLE);
 	DWORD dwExStyle = GetWindowLongPtr(hWnd, GWL_EXSTYLE);
 
@@ -185,8 +196,10 @@ void Game::MoveBall(const HWND& hWnd)
 
 void Game::SpawnBall(const HWND& hWnd)
 {
-	Ball.SetPos((GetClientDim(hWnd).first / 2 - GetClientDim(hWnd).first / 40), (GetClientDim(hWnd).second / 2 - GetClientDim(hWnd).first / 40));
-	int dim = GetClientDim(hWnd).first + GetClientDim(hWnd).second;
+	int posx = (GetClientDimEx(hWnd).first / 2 - GetClientDimEx(hWnd).first / 40);  // GetClientDimEx(hWnd).first / 40 is ball radius
+	int posy = (GetClientDimEx(hWnd).second / 2 - GetClientDimEx(hWnd).first / 40);
+	Ball.SetPos(posx, posy);
+	int dim = GetClientDimEx(hWnd).first + GetClientDimEx(hWnd).second;
 	int vel = (dim / 1800);
 	Ball.SetVel(vel);
 }
