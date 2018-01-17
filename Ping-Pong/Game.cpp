@@ -172,11 +172,13 @@ void Game::MoveBall(const HWND& hWnd)
 		if (LeftPaddle.GetPos() <= (Ball.GetPos().second + Ball.GetRadius()) && (Ball.GetPos().second + Ball.GetRadius()) <= (LeftPaddle.GetPos() + LeftPaddle.GetHeight()))
 		{
 			Ball.SwitchXVel();
+			Ball.IncreaseSpeed();
 		}
 		else
 		{
 			SpawnBall(hWnd);
 			RightScore++;
+			Ball.SetVel(1);
 		}
 	}
 
@@ -185,11 +187,13 @@ void Game::MoveBall(const HWND& hWnd)
 		if (RightPaddle.GetPos() <= (Ball.GetPos().second + Ball.GetRadius()) && (Ball.GetPos().second + Ball.GetRadius()) <= (RightPaddle.GetPos() + RightPaddle.GetHeight()))
 		{
 			Ball.SwitchXVel();
+			Ball.IncreaseSpeed();
 		}
 		else
 		{
 			SpawnBall(hWnd);
 			LeftScore++;
+			Ball.SetVel(1);
 		}
 	}
 }
@@ -199,9 +203,5 @@ void Game::SpawnBall(const HWND& hWnd)
 	int posx = (GetClientDimEx(hWnd).first / 2 - GetClientDimEx(hWnd).first / 40);  // GetClientDimEx(hWnd).first / 40 is ball radius
 	int posy = (GetClientDimEx(hWnd).second / 2 - GetClientDimEx(hWnd).first / 40);
 	Ball.SetPos(posx, posy);
-	int x = GetClientDimEx(hWnd).first;
-	int y = GetClientDimEx(hWnd).second;
-	int dim = x + y;
-	float vel = (dim / 1800.0);
-	Ball.SetVel(vel);
 }
+

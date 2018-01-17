@@ -11,14 +11,15 @@ public:
 	void SetPos(int x, int y);
 	void SwitchYVel();
 	void SwitchXVel();
-	void SetVel(float vel);
+	void IncreaseSpeed();
+	void SetVel(int vel);
 	void MoveBall();
 	std::pair<int, int> GetPos() const;
 	std::pair<int, int> GetOldPos() const;
 	int GetRadius() const;
 private:
 	int BallRadius;
-	float BallVel[2];
+	int BallVel[2] = {1, 1};
 	int BallPos[2];
 	int OldBallPos[2];
 };

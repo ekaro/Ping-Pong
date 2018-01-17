@@ -2,7 +2,7 @@
 
 Paddle::Paddle()
 {
-	Speed = 20;
+	Speed = 40;
 }
 
 void Paddle::DrawPaddle(const HDC& hdc, int x, int y)
