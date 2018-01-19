@@ -216,10 +216,12 @@ void Game::SpawnBall(const HWND& hWnd, bool direction)
 {
 	int posx = (GetClientDimEx(hWnd).first / 2 - GetClientDimEx(hWnd).first / 40);  // GetClientDimEx(hWnd).first / 40 is ball radius
 	int posy = (GetClientDimEx(hWnd).second / 2 - GetClientDimEx(hWnd).first / 40);
-	Ball.SetPos(posx, posy);	
+	Ball.SetPos(posx, posy);	 // Setting ball postion to the middle of the screen
+	
 	std::mt19937 rng(rd());    // Standard mersenne_twister_engine seeded with rd()
 	std::uniform_int_distribution<int> GenerateXVel(120, 240);
 	std::uniform_int_distribution<int> GenerateYVel(60, 180);
+
 	float XVel = -(GenerateXVel(rng) / 100.0);
 	float YVel = -(GenerateYVel(rng) / 100.0);
 	
@@ -229,16 +231,5 @@ void Game::SpawnBall(const HWND& hWnd, bool direction)
 	}
 	
 	Ball.SetVel(XVel, YVel);
-	
-	/*
-	std::string sx = std::to_string(XVel);
-	std::string sy = std::to_string(YVel);
-	OutputDebugString("X Ball Velocity: ");
-	OutputDebugString(sx.c_str());
-	OutputDebugString("\n");
-	OutputDebugString("Y Ball Velocity:");
-	OutputDebugString(sy.c_str());
-	OutputDebugString("\n");
-	OutputDebugString("Ball Spawned\n");*/
 }
 
