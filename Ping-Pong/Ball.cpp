@@ -8,7 +8,7 @@ void Ball::DrawBall(const HDC& hdc, int x, int y)
 
 void Ball::RemoveBall(const HDC& hdc, int x, int y)
 {
-	Ellipse(hdc, x - 10, y - 10, x + BallRadius * 2 + 10, y + BallRadius * 2 + 10);
+	Ellipse(hdc, x, y, x + BallRadius * 2, y + BallRadius * 2);
 }
 
 void Ball::SetPos(float x, float y)
