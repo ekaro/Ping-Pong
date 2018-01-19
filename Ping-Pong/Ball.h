@@ -8,18 +8,19 @@ public:
 	void DrawBall(const HDC& hdc, int x, int y);
 	void RemoveBall(const HDC& hdc, int x, int y);
 	void SetRadius(int Radius);
-	void SetPos(int x, int y);
+	void SetPos(float x, float y);
 	void SwitchYVel();
 	void SwitchXVel();
 	void IncreaseSpeed();
-	void SetVel(int vel);
+	void SetVel(float xvel, float yvel);
 	void MoveBall();
 	std::pair<int, int> GetPos() const;
 	std::pair<int, int> GetOldPos() const;
+	void OutputVel() const;
 	int GetRadius() const;
 private:
 	int BallRadius;
-	int BallVel[2] = {1, 1};
-	int BallPos[2];
-	int OldBallPos[2];
+	float BallVel[2] = {1.0, 1.0};
+	float BallPos[2];
+	float OldBallPos[2];
 };

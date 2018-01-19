@@ -2,6 +2,7 @@
 #include "Paddle.h"
 #include "Ball.h"
 #include <tchar.h>
+#include <random>
 
 class Game
 {
@@ -17,7 +18,7 @@ public:
 	void MoveLPDown(const HWND& hWnd);
 	void MoveLPUp(const HWND& hWnd);
 	void MoveBall(const HWND& hWnd);
-	void SpawnBall(const HWND& hWnd);
+	void SpawnBall(const HWND& hWnd, bool direction);
 private:
 	static constexpr COLORREF White = (RGB(255, 255, 255));
 	static constexpr COLORREF Black = (RGB(0, 0, 0));
@@ -28,7 +29,7 @@ private:
 	LOGFONT logFont;
 	std::string LeftScoreNumber;
 	std::string RightScoreNumber;
-	static constexpr TCHAR ScoreMsg[] = _T("10");
+	std::random_device rd;      // Will be used to obtain a seed for the random number engine
 	RECT RightPaddleRect;
 	RECT LeftPaddleRect;
 	RECT BallRect;

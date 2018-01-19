@@ -154,6 +154,7 @@ void Game::MoveLPUp(const HWND& hWnd)
 void Game::MoveBall(const HWND& hWnd)
 {
 	Ball.MoveBall();
+	Ball.OutputVel();
 	//BallRect = { Ball.GetPos().first, Ball.GetPos().second, Ball.GetPos().first + Ball.GetRadius()*2, Ball.GetPos().second + Ball.GetRadius()*2 };
 	BallRect = { LeftPaddle.GetWidth(), 0, GetClientDim(hWnd).first - RightPaddle.GetWidth(), GetClientDim(hWnd).second };
 	InvalidateRect(hWnd, &BallRect, false);
@@ -176,9 +177,8 @@ void Game::MoveBall(const HWND& hWnd)
 		}
 		else
 		{
-			SpawnBall(hWnd);
+			SpawnBall(hWnd, true);
 			RightScore++;
-			Ball.SetVel(1);
 		}
 	}
 
@@ -191,17 +191,39 @@ void Game::MoveBall(const HWND& hWnd)
 		}
 		else
 		{
-			SpawnBall(hWnd);
+			SpawnBall(hWnd, false);
 			LeftScore++;
-			Ball.SetVel(1);
 		}
 	}
 }
 
-void Game::SpawnBall(const HWND& hWnd)
+void Game::SpawnBall(const HWND& hWnd, bool direction)
 {
 	int posx = (GetClientDimEx(hWnd).first / 2 - GetClientDimEx(hWnd).first / 40);  // GetClientDimEx(hWnd).first / 40 is ball radius
 	int posy = (GetClientDimEx(hWnd).second / 2 - GetClientDimEx(hWnd).first / 40);
-	Ball.SetPos(posx, posy);
+	Ball.SetPos(posx, posy);	
+	std::mt19937 rng(rd());    // Standard mersenne_twister_engine seeded with rd()
+	std::uniform_int_distribution<int> GenerateXVel(120, 240);
+	std::uniform_int_distribution<int> GenerateYVel(60, 180);
+	float XVel = -(GenerateXVel(rng) / 100.0);
+	float YVel = -(GenerateYVel(rng) / 100.0);
+	
+	if (direction == true)
+	{
+		XVel *= -1;
+	}
+	
+	Ball.SetVel(XVel, YVel);
+	
+	/*
+	std::string sx = std::to_string(XVel);
+	std::string sy = std::to_string(YVel);
+	OutputDebugString("X Ball Velocity: ");
+	OutputDebugString(sx.c_str());
+	OutputDebugString("\n");
+	OutputDebugString("Y Ball Velocity:");
+	OutputDebugString(sy.c_str());
+	OutputDebugString("\n");
+	OutputDebugString("Ball Spawned\n");*/
 }
 

@@ -1,4 +1,5 @@
 #include "Ball.h"
+#include <string>
 
 void Ball::DrawBall(const HDC& hdc, int x, int y)
 {
@@ -10,7 +11,7 @@ void Ball::RemoveBall(const HDC& hdc, int x, int y)
 	Ellipse(hdc, x - 10, y - 10, x + BallRadius * 2 + 10, y + BallRadius * 2 + 10);
 }
 
-void Ball::SetPos(int x, int y)
+void Ball::SetPos(float x, float y)
 {
 	OldBallPos[0] = BallPos[0];
 	OldBallPos[1] = BallPos[1];
@@ -27,8 +28,8 @@ void Ball::MoveBall()
 {
 	OldBallPos[0] = BallPos[0];
 	OldBallPos[1] = BallPos[1];
-	BallPos[0] = BallPos[0] - BallVel[0];
-	BallPos[1] = BallPos[1] - BallVel[1];
+	BallPos[0] = BallPos[0] + BallVel[0];
+	BallPos[1] = BallPos[1] + BallVel[1];
 }
 
 std::pair<int, int> Ball::GetPos() const
@@ -76,8 +77,20 @@ void Ball::IncreaseSpeed()
 	}
 }
 
-void Ball::SetVel(int vel)
+void Ball::SetVel(float xvel , float yvel)
 {
-	BallVel[0] = vel;
-	BallVel[1] = vel;
+	BallVel[0] = xvel;
+	BallVel[1] = yvel;
+}
+
+void Ball::OutputVel() const
+{
+	std::string sx = std::to_string(BallVel[0]);
+	std::string sy = std::to_string(BallVel[1]);
+	OutputDebugString("X Ball Velocity: ");
+	OutputDebugString(sx.c_str());
+	OutputDebugString("\n");
+	OutputDebugString("Y Ball Velocity:");
+	OutputDebugString(sy.c_str());
+	OutputDebugString("\n");
 }
