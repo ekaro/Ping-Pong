@@ -14,8 +14,8 @@ public:
 	void IncreaseSpeed();
 	void SetVel(float xvel, float yvel);
 	void MoveBall();
-	std::pair<int, int> GetPos() const;
-	std::pair<int, int> GetOldPos() const;
+	std::pair<float, float> GetPos() const;
+	std::pair<float, float> GetOldPos() const;
 	void OutputVel() const;
 	int GetRadius() const;
 private:

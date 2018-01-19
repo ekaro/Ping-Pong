@@ -32,12 +32,12 @@ void Ball::MoveBall()
 	BallPos[1] = BallPos[1] + BallVel[1];
 }
 
-std::pair<int, int> Ball::GetPos() const
+std::pair<float, float> Ball::GetPos() const
 {
 	return { BallPos[0], BallPos[1] };
 }
 
-std::pair<int, int> Ball::GetOldPos() const
+std::pair<float, float> Ball::GetOldPos() const
 {
 	return { OldBallPos[0], OldBallPos[1] };
 }
@@ -62,14 +62,6 @@ void Ball::IncreaseSpeed()
 	if (BallVel[0] > 0)
 	{
 		BallVel[0] += 0.1;
-	}
-	if (BallVel[0] > 0)
-	{
-		BallVel[0] += 0.1;
-	}
-	if (BallVel[0] < 0)
-	{
-		BallVel[0] -= 0.1;
 	}
 	if (BallVel[0] < 0)
 	{
