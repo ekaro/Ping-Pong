@@ -197,6 +197,21 @@ void Game::MoveBall(const HWND& hWnd)
 	}
 }
 
+void Game::NewGame(const HWND& hWnd)
+{
+	std::mt19937 rng(rd());
+	std::uniform_int_distribution<int> Direction(0, 1);
+	int dir = Direction(rng);
+	if (dir)
+	{
+		SpawnBall(hWnd, true);
+	}
+	else
+	{
+		SpawnBall(hWnd, false);
+	}
+}
+
 void Game::SpawnBall(const HWND& hWnd, bool direction)
 {
 	int posx = (GetClientDimEx(hWnd).first / 2 - GetClientDimEx(hWnd).first / 40);  // GetClientDimEx(hWnd).first / 40 is ball radius

@@ -19,6 +19,7 @@ public:
 	void MoveLPUp(const HWND& hWnd);
 	void MoveBall(const HWND& hWnd);
 	void SpawnBall(const HWND& hWnd, bool direction);
+	void NewGame(const HWND& hWnd);
 private:
 	static constexpr COLORREF White = (RGB(255, 255, 255));
 	static constexpr COLORREF Black = (RGB(0, 0, 0));

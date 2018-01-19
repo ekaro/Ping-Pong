@@ -108,7 +108,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_CREATE:
 
-		PingPong.SpawnBall(hWnd, true);
+		PingPong.NewGame(hWnd);
 
 	case WM_COMMAND:
 
