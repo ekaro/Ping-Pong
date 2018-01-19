@@ -5,8 +5,8 @@
 class Ball
 {
 public:
-	void DrawBall(const HDC& hdc, int x, int y);
-	void RemoveBall(const HDC& hdc, int x, int y);
+	void DrawBall(const HDC& hdc, float x, float y);
+	void RemoveBall(const HDC& hdc, float x, float y);
 	void SetRadius(int Radius);
 	void SetPos(float x, float y);
 	void SwitchYVel();
