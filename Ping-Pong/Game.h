@@ -24,6 +24,7 @@ private:
 	static constexpr COLORREF White = (RGB(255, 255, 255));
 	static constexpr COLORREF Black = (RGB(0, 0, 0));
 	static constexpr COLORREF Red = (RGB(255, 0, 0));
+	bool newGame;
 	int LeftScore;
 	int RightScore;
 	HFONT ScoreFont;
