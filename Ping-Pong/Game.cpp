@@ -184,6 +184,7 @@ void Game::MoveBall(const HWND& hWnd)        // ball movement logic
 		}
 		else
 		{
+			Sleep(1000);
 			SpawnBall(hWnd, true);
 			RightScore++;
 		}
@@ -198,6 +199,7 @@ void Game::MoveBall(const HWND& hWnd)        // ball movement logic
 		}
 		else
 		{
+			Sleep(1000);
 			SpawnBall(hWnd, false);
 			LeftScore++;
 		}
@@ -206,7 +208,6 @@ void Game::MoveBall(const HWND& hWnd)        // ball movement logic
 
 void Game::NewGame(const HWND& hWnd)   // behaviour of the ball on the beginning of game
 {
-	
 	std::mt19937 rng(rd());
 	std::uniform_int_distribution<int> Direction(0, 1);
 	int dir = Direction(rng);

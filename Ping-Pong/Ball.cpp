@@ -59,11 +59,11 @@ void Ball::IncreaseSpeed()
 {
 	if (BallVel[0] > 0)
 	{
-		BallVel[0] += 0.1;
+		BallVel[0] += 0.3;
 	}
 	if (BallVel[0] < 0)
 	{
-		BallVel[0] -= 0.1;
+		BallVel[0] -= 0.3;
 	}
 }
 
