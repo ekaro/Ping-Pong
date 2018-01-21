@@ -18,9 +18,11 @@ public:
 	std::pair<float, float> GetOldPos() const;
 	void OutputVel() const;
 	int GetRadius() const;
+	void SetSpeed(float speed);
 private:
 	int BallRadius;
-	float BallVel[2] = {1.0, 1.0};
+	float BallVel[2];
 	float BallPos[2];
 	float OldBallPos[2];
+	float Speed = 0.3;
 };

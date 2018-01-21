@@ -223,6 +223,15 @@ void Game::NewGame(const HWND& hWnd)   // behaviour of the ball on the beginning
 	newGame = false;
 }
 
+void Game::SetSpeed(const HWND& hWnd)
+{
+	float PaddleSpeed = (GetClientDim(hWnd).first + GetClientDim(hWnd).second) / 100.0;
+	float BallSpeed = (GetClientDim(hWnd).first + GetClientDim(hWnd).second) / 10000.0;
+	LeftPaddle.SetSpeed(PaddleSpeed);
+	RightPaddle.SetSpeed(PaddleSpeed);
+	Ball.SetSpeed(BallSpeed);
+}
+
 void Game::SpawnBall(const HWND& hWnd, bool direction)   // function for spawning ball in the center
 {
 	if (newGame)    // if it is new game use extend GetClientDim function for precise measurement

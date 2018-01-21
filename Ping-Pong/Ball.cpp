@@ -45,6 +45,11 @@ int Ball::GetRadius() const
 	return BallRadius;
 }
 
+void Ball::SetSpeed(float speed)
+{
+	Speed = speed;
+}
+
 void Ball::SwitchYVel()
 {
 	BallVel[1] *= -1;
@@ -59,11 +64,11 @@ void Ball::IncreaseSpeed()
 {
 	if (BallVel[0] > 0)
 	{
-		BallVel[0] += 0.3;
+		BallVel[0] += Speed;
 	}
 	if (BallVel[0] < 0)
 	{
-		BallVel[0] -= 0.3;
+		BallVel[0] -= Speed;
 	}
 }
 
