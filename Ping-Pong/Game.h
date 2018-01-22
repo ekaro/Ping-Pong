@@ -17,7 +17,7 @@ public:
 	void MoveRPUp(const HWND& hWnd);
 	void MoveLPDown(const HWND& hWnd);
 	void MoveLPUp(const HWND& hWnd);
-	void MoveBall(const HWND& hWnd);
+	void MoveBall(const HDC& hdc, const HWND& hWnd);
 	void SpawnBall(const HWND& hWnd, bool direction);
 	void NewGame(const HWND& hWnd);
 	void SetSpeed(const HWND& hWnd);

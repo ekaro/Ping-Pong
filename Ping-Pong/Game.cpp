@@ -158,7 +158,7 @@ void Game::MoveLPUp(const HWND& hWnd)    // function for moving left paddle up
 	}
 }
 
-void Game::MoveBall(const HWND& hWnd)        // ball movement logic
+void Game::MoveBall(const HDC& hdc, const HWND& hWnd)        // ball movement logic
 {
 	Ball.MoveBall();
 	Ball.OutputVel();
@@ -184,7 +184,7 @@ void Game::MoveBall(const HWND& hWnd)        // ball movement logic
 		}
 		else
 		{
-			Sleep(1000);
+			Sleep(2000);
 			SpawnBall(hWnd, true);
 			RightScore++;
 		}
@@ -199,7 +199,7 @@ void Game::MoveBall(const HWND& hWnd)        // ball movement logic
 		}
 		else
 		{
-			Sleep(1000);
+			Sleep(2000);
 			SpawnBall(hWnd, false);
 			LeftScore++;
 		}
@@ -234,22 +234,25 @@ void Game::SetSpeed(const HWND& hWnd)
 
 void Game::SpawnBall(const HWND& hWnd, bool direction)   // function for spawning ball in the center
 {
+	int CurrentClientWidth = GetClientDimEx(hWnd).first;
+	int CurrentClientHeight = GetClientDimEx(hWnd).second;
+
 	if (newGame)    // if it is new game use extend GetClientDim function for precise measurement
 	{
-		int posx = (GetClientDimEx(hWnd).first / 2 - GetClientDimEx(hWnd).first / 40);  // GetClientDimEx(hWnd).first / 40 is ball radius
-		int posy = (GetClientDimEx(hWnd).second / 2 - GetClientDimEx(hWnd).first / 40);
+		int posx = (CurrentClientWidth / 2 - CurrentClientWidth / 40);  // GetClientDimEx(hWnd).first / 40 is ball radius
+		int posy = (CurrentClientHeight / 2 - CurrentClientWidth / 40);
 		Ball.SetPos(posx, posy);  // Setting ball postion to the middle of the screen
 	}
 	else
 	{
-		int posx = (GetClientDim(hWnd).first / 2 - GetClientDim(hWnd).first / 40);  // GetClientDimEx(hWnd).first / 40 is ball radius
-		int posy = (GetClientDim(hWnd).second / 2 - GetClientDim(hWnd).first / 40);
+		int posx = (CurrentClientWidth / 2 - CurrentClientWidth / 40);  // GetClientDimEx(hWnd).first / 40 is ball radius
+		int posy = (CurrentClientHeight / 2 - CurrentClientWidth / 40);
 		Ball.SetPos(posx, posy);  // Setting ball postion to the middle of the screen
 	}
 	
 	std::mt19937 rng(rd());    // Standard mersenne_twister_engine seeded with rd()
-	std::uniform_int_distribution<int> GenerateXVel(120, 240);
-	std::uniform_int_distribution<int> GenerateYVel(60, 180);
+	std::uniform_int_distribution<int> GenerateXVel(CurrentClientWidth/10, CurrentClientWidth/10*2);
+	std::uniform_int_distribution<int> GenerateYVel(CurrentClientHeight/10, CurrentClientHeight/10*2);
 
 	float XVel = -(GenerateXVel(rng) / 100.0);
 	float YVel = -(GenerateYVel(rng) / 100.0);
