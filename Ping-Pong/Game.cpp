@@ -158,7 +158,7 @@ void Game::MoveLPUp(const HWND& hWnd)    // function for moving left paddle up
 	}
 }
 
-void Game::MoveBall(const HDC& hdc, const HWND& hWnd)        // ball movement logic
+void Game::MoveBall(const HWND& hWnd)        // ball movement logic
 {
 	Ball.MoveBall();
 	Ball.OutputVel();
@@ -201,7 +201,7 @@ void Game::MoveBall(const HDC& hdc, const HWND& hWnd)        // ball movement lo
 		{
 			Sleep(2000);
 			SpawnBall(hWnd, false);
-			LeftScore++;
+			LeftScore++;	
 		}
 	}
 }

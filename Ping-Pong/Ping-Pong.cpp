@@ -120,11 +120,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 		PingPong.DrawBall(hdc, hWnd);
 		PingPong.DrawPaddles(hdc, hWnd);
-		PingPong.DrawLines(hdc, hWnd);		
-		PingPong.MoveBall(hWnd);
-		PingPong.DrawScores(hdc, hWnd);
-		
+		PingPong.DrawLines(hdc, hWnd);	
+		PingPong.DrawScores(hdc, hWnd);	
+	
 		EndPaint(hWnd, &ps);
+
+		PingPong.MoveBall(hWnd);
+
 		break;
 
 	case WM_LBUTTONDOWN:
