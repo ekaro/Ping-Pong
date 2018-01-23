@@ -1,20 +1,19 @@
 #pragma once
 #include <windows.h>
-#include <array>
 
 class Paddle
 {
 public:
 	void DrawPaddle(const HDC& hdc, int x, int y);
+	void MoveUp();
+	void MoveDown();
 	void SetWidth(int Width);
 	void SetHeight(int Height);
-	void MoveDown();
-	void MoveUp();
+	void SetSpeed(float speed);
 	int GetWidth() const;
 	int GetHeight() const;
-	int GetOldPos() const;
 	int GetPos() const;
-	void SetSpeed(float speed);
+	int GetOldPos() const;
 private:
 	int x;
 	int y;

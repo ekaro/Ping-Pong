@@ -1,7 +1,6 @@
 #pragma once
 #include "Paddle.h"
 #include "Ball.h"
-#include <tchar.h>
 #include <random>
 
 class Game
@@ -26,7 +25,6 @@ private:
 	static constexpr COLORREF Black = (RGB(0, 0, 0));
 	static constexpr COLORREF Red = (RGB(255, 0, 0));
 	bool newGame;
-	bool Spawning;
 	int LeftScore;
 	int RightScore;
 	HFONT ScoreFont;

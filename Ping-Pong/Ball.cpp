@@ -6,7 +6,7 @@ void Ball::DrawBall(const HDC& hdc, float x, float y)
 	Ellipse(hdc, x, y, x + BallRadius * 2, y + BallRadius * 2);
 }
 
-void Ball::RemoveBall(const HDC& hdc, float x, float y)
+void Ball::DeleteBall(const HDC& hdc, float x, float y)
 {
 	Ellipse(hdc, x, y, x + BallRadius * 2, y + BallRadius * 2);
 }
@@ -78,7 +78,7 @@ void Ball::SetVel(float xvel , float yvel)
 	BallVel[1] = yvel;
 }
 
-void Ball::OutputVel() const
+void Ball::OutputVel() const    
 {
 	std::string sx = std::to_string(BallVel[0]);
 	std::string sy = std::to_string(BallVel[1]);

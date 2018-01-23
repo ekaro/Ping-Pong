@@ -1,12 +1,6 @@
 #include "Game.h"
-#include <Gdiplus.h>
+#include <string>
 #include <tchar.h>
-#include <windows.h>
-#include <vector>
-#include <random>
-#include <string> 
-#include <array>
-
 
 void Game::DrawPaddles(const HDC& hdc, const HWND& hWnd)
 {
@@ -37,7 +31,7 @@ void Game::DrawBall(const HDC & hdc, const HWND & hWnd)
 	SelectObject(hdc, GetStockObject(DC_BRUSH));
 	
 	SetDCBrushColor(hdc, Black);	
-	Ball.RemoveBall(hdc, Ball.GetOldPos().first, Ball.GetOldPos().second);  // Delete ball on old position
+	Ball.DeleteBall(hdc, Ball.GetOldPos().first, Ball.GetOldPos().second);  // Delete ball on old position
 
 	SetDCBrushColor(hdc, White);
 	Ball.DrawBall(hdc, Ball.GetPos().first, Ball.GetPos().second);          // Draw ball on new position

@@ -1,9 +1,6 @@
-#include <stdlib.h>
 #include <Windowsx.h>
-#include <windows.h>
 #include <tchar.h>
 #include "Game.h"
-
 
 // Forward declaration of functions included in this module:
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
