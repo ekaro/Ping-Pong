@@ -6,8 +6,7 @@
 class Game
 {
 public:
-	std::pair<int, int> GetClientDim(const HWND& hWnd);
-	std::pair<int, int> GetClientDimEx(const HWND& hWnd);
+	void NewGame(const HWND& hWnd);
 	void DrawPaddles(const HDC& hdc, const HWND& hWnd);
 	void DrawBall(const HDC& hdc, const HWND& hWnd);
 	void DrawLines(const HDC& hdc, const HWND& hWnd);
@@ -18,8 +17,9 @@ public:
 	void MoveLPUp(const HWND& hWnd);
 	void MoveBall(const HWND& hWnd);
 	void SpawnBall(const HWND& hWnd, bool direction);
-	void NewGame(const HWND& hWnd);
 	void SetSpeed(const HWND& hWnd);
+	std::pair<int, int> GetClientDim(const HWND& hWnd);
+	std::pair<int, int> GetClientDimEx(const HWND& hWnd);
 private:
 	static constexpr COLORREF White = (RGB(255, 255, 255));
 	static constexpr COLORREF Black = (RGB(0, 0, 0));

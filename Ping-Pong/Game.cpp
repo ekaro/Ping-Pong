@@ -2,6 +2,23 @@
 #include <string>
 #include <tchar.h>
 
+void Game::NewGame(const HWND& hWnd)   // behaviour of the ball on the beginning of game
+{
+	std::mt19937 rng(rd());
+	std::uniform_int_distribution<int> Direction(0, 1);
+	int dir = Direction(rng);
+	newGame = true;
+	if (dir)
+	{
+		SpawnBall(hWnd, true);
+	}
+	else
+	{
+		SpawnBall(hWnd, false);
+	}
+	newGame = false;
+}
+
 void Game::DrawPaddles(const HDC& hdc, const HWND& hWnd)
 {
 	LeftPaddle.SetWidth(GetClientDim(hWnd).first / 30);
@@ -156,7 +173,6 @@ void Game::MoveBall(const HWND& hWnd)        // ball movement logic
 {
 	Ball.MoveBall();
 	Ball.OutputVel();
-	//BallRect = { Ball.GetPos().first, Ball.GetPos().second, Ball.GetPos().first + Ball.GetRadius()*2, Ball.GetPos().second + Ball.GetRadius()*2 };
 	BallRect = { LeftPaddle.GetWidth(), 0, GetClientDim(hWnd).first - RightPaddle.GetWidth(), GetClientDim(hWnd).second };
 	InvalidateRect(hWnd, &BallRect, false);
 
@@ -198,23 +214,6 @@ void Game::MoveBall(const HWND& hWnd)        // ball movement logic
 			LeftScore++;	
 		}
 	}
-}
-
-void Game::NewGame(const HWND& hWnd)   // behaviour of the ball on the beginning of game
-{
-	std::mt19937 rng(rd());
-	std::uniform_int_distribution<int> Direction(0, 1);
-	int dir = Direction(rng);
-	newGame = true;
-	if (dir)
-	{
-		SpawnBall(hWnd, true);
-	}
-	else
-	{
-		SpawnBall(hWnd, false);
-	}
-	newGame = false;
 }
 
 void Game::SetSpeed(const HWND& hWnd)
