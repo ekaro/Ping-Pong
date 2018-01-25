@@ -15,7 +15,8 @@ public:
 	void MoveRPUp(const HWND& hWnd);
 	void MoveLPDown(const HWND& hWnd);
 	void MoveLPUp(const HWND& hWnd);
-	void MoveBall(const HWND& hWnd);
+	void UpdateBall(const HWND& hWnd);
+	void UpdatePaddle(const HWND& hWnd);
 	void SpawnBall(const HWND& hWnd, bool direction);
 	void SetSpeed(const HWND& hWnd);
 	void SetRightFlag(bool RightUp, bool RightDown);

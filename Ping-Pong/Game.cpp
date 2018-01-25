@@ -169,32 +169,12 @@ void Game::MoveLPUp(const HWND& hWnd)    // function for moving left paddle up
 	}
 }
 
-void Game::MoveBall(const HWND& hWnd)        // ball movement logic
+void Game::UpdateBall(const HWND& hWnd)        // ball movement logic
 {
 	Ball.MoveBall();
 	Ball.OutputVel();
 	BallRect = { LeftPaddle.GetWidth(), 0, GetClientDim(hWnd).first - RightPaddle.GetWidth(), GetClientDim(hWnd).second };
 	InvalidateRect(hWnd, &BallRect, false);
-
-	if (LeftPaddle.GetFlag().first)
-	{
-		MoveLPUp(hWnd);
-	}
-	
-	if (LeftPaddle.GetFlag().second)
-	{
-		MoveLPDown(hWnd);
-	}
-
-	if (RightPaddle.GetFlag().first)
-	{
-		MoveRPUp(hWnd);
-	}
-
-	if (RightPaddle.GetFlag().second)
-	{
-		MoveRPDown(hWnd);
-	}
 
 	if (Ball.GetPos().second <= 0)
 	{
@@ -234,6 +214,29 @@ void Game::MoveBall(const HWND& hWnd)        // ball movement logic
 			LeftScore++;	
 		}
 	}
+}
+
+void Game::UpdatePaddle(const HWND& hWnd)
+{
+	if (LeftPaddle.GetFlag().first)
+		{
+			MoveLPUp(hWnd);
+		}
+	
+	if (LeftPaddle.GetFlag().second)
+		{
+			MoveLPDown(hWnd);
+		}
+
+	if (RightPaddle.GetFlag().first)
+		{
+			MoveRPUp(hWnd);
+		}
+
+	if (RightPaddle.GetFlag().second)
+		{
+			MoveRPDown(hWnd);
+		}
 }
 
 void Game::SetRightFlag(bool RightUp, bool RightDown)
