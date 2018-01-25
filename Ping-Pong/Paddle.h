@@ -1,5 +1,6 @@
 #pragma once
 #include <windows.h>
+#include <array>
 
 class Paddle
 {
@@ -14,6 +15,8 @@ public:
 	int GetHeight() const;
 	int GetPos() const;
 	int GetOldPos() const;
+	void SetFlag(bool up, bool down);
+	std::pair<bool, bool> GetFlag() const;
 private:
 	int x;
 	int y;
@@ -21,4 +24,6 @@ private:
 	int Width;
 	int Height;
 	float Speed;
+	bool MoveU;
+	bool MoveD;
 };

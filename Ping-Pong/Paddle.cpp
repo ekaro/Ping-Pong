@@ -37,6 +37,12 @@ void Paddle::SetSpeed(float speed)
 	Speed = speed;
 }
 
+void Paddle::SetFlag(bool up, bool down)
+{
+	MoveU = up;
+	MoveD = down;
+}
+
 int Paddle::GetOldPos() const
 {
 	return oldy;
@@ -50,4 +56,9 @@ int Paddle::GetWidth() const
 int Paddle::GetHeight() const
 {
 	return Height;
+}
+
+std::pair<bool, bool> Paddle::GetFlag() const
+{
+	return {MoveU, MoveD};
 }

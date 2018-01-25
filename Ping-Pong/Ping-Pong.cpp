@@ -119,6 +119,26 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		EndPaint(hWnd, &ps);
 
 		PingPong.MoveBall(hWnd);
+		/*
+		if (GetAsyncKeyState(0x28) & 0x8000)
+		{
+			PingPong.MoveRPDown(hWnd);
+		}
+
+		if (GetAsyncKeyState(0x26) & 0x8000)
+		{
+			PingPong.MoveRPUp(hWnd);
+		}
+
+		if (GetAsyncKeyState(0x53) & 0x8000)
+		{
+			PingPong.MoveLPDown(hWnd);
+		}
+
+		if (GetAsyncKeyState(0x57) & 0x8000)
+		{
+			PingPong.MoveLPUp(hWnd);
+		}*/
 
 		break;
 
@@ -137,24 +157,50 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 		switch (wParam)
 		{
-			case 0x28:
-				
-				PingPong.MoveRPDown(hWnd);
-				break;
-
 			case 0x26:
 
-				PingPong.MoveRPUp(hWnd);
+				PingPong.SetRightFlag(true, false);
+				break;
+			
+			case 0x28:
+				
+				PingPong.SetRightFlag(false, true);
 				break;
 
 			case 0x57:
 
-				PingPong.MoveLPUp(hWnd);
+				PingPong.SetLeftFlag(true, false);
 				break;
 
 			case 0x53:
 				
-				PingPong.MoveLPDown(hWnd);
+				PingPong.SetLeftFlag(false, true);
+				break;
+		}
+		break;
+
+	case WM_KEYUP:
+
+		switch (wParam)
+		{
+			case 0x26:
+
+				PingPong.SetRightFlag(false, false);
+				break;
+
+			case 0x28:
+
+				PingPong.SetRightFlag(false, false);
+				break;
+
+			case 0x57:
+
+				PingPong.SetLeftFlag(false, false);
+				break;
+
+			case 0x53:
+
+				PingPong.SetLeftFlag(false, false);
 				break;
 		}
 		break;

@@ -18,6 +18,8 @@ public:
 	void MoveBall(const HWND& hWnd);
 	void SpawnBall(const HWND& hWnd, bool direction);
 	void SetSpeed(const HWND& hWnd);
+	void SetRightFlag(bool RightUp, bool RightDown);
+	void SetLeftFlag(bool LeftUp, bool LeftDown);
 	std::pair<int, int> GetClientDim(const HWND& hWnd);
 	std::pair<int, int> GetClientDimEx(const HWND& hWnd);
 private:
@@ -25,6 +27,10 @@ private:
 	static constexpr COLORREF Black = (RGB(0, 0, 0));
 	static constexpr COLORREF Red = (RGB(255, 0, 0));
 	bool newGame;
+	bool LPD;
+	bool LPU;
+	bool RPD;
+	bool RPU;
 	int LeftScore;
 	int RightScore;
 	HFONT ScoreFont;
