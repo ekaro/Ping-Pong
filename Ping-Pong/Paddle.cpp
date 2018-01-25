@@ -62,3 +62,14 @@ std::pair<bool, bool> Paddle::GetFlag() const
 {
 	return {MoveU, MoveD};
 }
+
+std::pair<int, int> Paddle::GetClientDim(const HWND& hWnd)         // function for getting current client dimensions
+{
+	RECT ClientRect;
+	::GetClientRect(hWnd, &ClientRect);
+
+	int CurrentWidth = ClientRect.right - ClientRect.left;
+	int CurrentHeight = ClientRect.bottom - ClientRect.top;
+
+	return { CurrentWidth, CurrentHeight };
+}

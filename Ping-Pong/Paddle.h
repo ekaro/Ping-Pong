@@ -17,6 +17,7 @@ public:
 	int GetOldPos() const;
 	void SetFlag(bool up, bool down);
 	std::pair<bool, bool> GetFlag() const;
+	std::pair<int, int> GetClientDim(const HWND& hWnd);
 private:
 	int x;
 	int y;
