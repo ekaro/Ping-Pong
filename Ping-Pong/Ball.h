@@ -1,12 +1,13 @@
 #pragma once
 #include <windows.h>
 #include <array>
+#include <string>
 
 class Ball
 {
 public:
-	void DrawBall(const HDC& hdc, float x, float y);
-	void DeleteBall(const HDC& hdc, float x, float y);
+	void DrawBall(const HDC& hdc, int x, int y);
+	void DeleteBall(const HDC& hdc, int x, int y);
 	void MoveBall();
 	void IncreaseSpeed();
 	void SwitchYVel();

@@ -1,12 +1,11 @@
 #include "Ball.h"
-#include <string>
 
-void Ball::DrawBall(const HDC& hdc, float x, float y)
+void Ball::DrawBall(const HDC& hdc, int x, int y)
 {
 	Ellipse(hdc, x, y, x + BallRadius * 2, y + BallRadius * 2);
 }
 
-void Ball::DeleteBall(const HDC& hdc, float x, float y)
+void Ball::DeleteBall(const HDC& hdc, int x, int y)
 {
 	Ellipse(hdc, x, y, x + BallRadius * 2, y + BallRadius * 2);
 }

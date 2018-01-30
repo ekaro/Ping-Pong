@@ -2,6 +2,8 @@
 #include "Paddle.h"
 #include "Ball.h"
 #include <random>
+#include <string>
+#include <tchar.h>
 
 class Game
 {

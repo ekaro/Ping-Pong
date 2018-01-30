@@ -1,5 +1,4 @@
 #include <Windowsx.h>
-#include <tchar.h>
 #include "Game.h"
 
 // Forward declaration of functions included in this module:
@@ -58,8 +57,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	if (IsWindow(hWnd))
 	{
-		DWORD dwStyle = GetWindowLongPtr(hWnd, GWL_STYLE);
-		DWORD dwExStyle = GetWindowLongPtr(hWnd, GWL_EXSTYLE);
+		DWORD dwStyle = (DWORD)GetWindowLongPtr(hWnd, GWL_STYLE);
+		DWORD dwExStyle = (DWORD)GetWindowLongPtr(hWnd, GWL_EXSTYLE);
 		HMENU menu = GetMenu(hWnd);
 
 		RECT rc = { 0, 0, WindowWidth, WindowHeight };

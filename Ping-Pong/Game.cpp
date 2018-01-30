@@ -1,6 +1,4 @@
 #include "Game.h"
-#include <string>
-#include <tchar.h>
 
 void Game::NewGame(const HWND& hWnd)   // behaviour of the ball on the beginning of game
 {
@@ -48,10 +46,10 @@ void Game::DrawBall(const HDC & hdc, const HWND & hWnd)
 	SelectObject(hdc, GetStockObject(DC_BRUSH));
 	
 	SetDCBrushColor(hdc, Black);	
-	Ball.DeleteBall(hdc, Ball.GetOldPos().first, Ball.GetOldPos().second);  // Delete ball on old position
+	Ball.DeleteBall(hdc, (int)Ball.GetOldPos().first, (int)Ball.GetOldPos().second);  // Delete ball on old position
 
 	SetDCBrushColor(hdc, White);
-	Ball.DrawBall(hdc, Ball.GetPos().first, Ball.GetPos().second);          // Draw ball on new position
+	Ball.DrawBall(hdc, (int)Ball.GetPos().first, (int)Ball.GetPos().second);          // Draw ball on new position
 }
 
 void Game::DrawLines(const HDC & hdc, const HWND & hWnd)
@@ -88,8 +86,8 @@ void Game::DrawScores(const HDC & hdc, const HWND & hWnd)
 	SetBkColor(hdc, RGB(0, 0, 0));
 	SelectObject(hdc, ScoreFont);
 
-	TextOut(hdc, GetClientDim(hWnd).first / 4, GetClientDim(hWnd).second / 20, LSNum.c_str(), _tcslen(LSNum.c_str()));        // Draw left score
-	TextOut(hdc, GetClientDim(hWnd).first / 4 * 3, GetClientDim(hWnd).second / 20, RSNum.c_str(), _tcslen(RSNum.c_str()));  // Draw right score
+	TextOut(hdc, GetClientDim(hWnd).first / 4, GetClientDim(hWnd).second / 20, LSNum.c_str(), (int)_tcslen(LSNum.c_str()));        // Draw left score
+	TextOut(hdc, GetClientDim(hWnd).first / 4 * 3, GetClientDim(hWnd).second / 20, RSNum.c_str(), (int)_tcslen(RSNum.c_str()));  // Draw right score
 
 	DeleteObject(ScoreFont);    // Delete font after drawing scores to prevent memory leak
 }
@@ -106,8 +104,8 @@ void Game::SetLeftFlag(bool LeftUp, bool LeftDown)
 
 void Game::SetSpeed(const HWND& hWnd)
 {
-	float PaddleSpeed = GetClientDim(hWnd).second / 100.0;
-	float BallSpeed = (GetClientDim(hWnd).first + GetClientDim(hWnd).second) / 10000.0;
+	float PaddleSpeed = GetClientDim(hWnd).second / (float)100.0;
+	float BallSpeed = (GetClientDim(hWnd).first + GetClientDim(hWnd).second) / (float)10000.0;
 	LeftPaddle.SetSpeed(PaddleSpeed);
 	RightPaddle.SetSpeed(PaddleSpeed);
 	Ball.SetSpeed(BallSpeed);
@@ -218,14 +216,14 @@ void Game::SpawnBall(const HWND& hWnd, bool direction)   // function for spawnin
 
 	if (newGame)    // if it is new game use extend GetClientDim function for precise measurement
 	{
-		int posx = (CurrentClientWidth / 2 - CurrentClientWidth / 40);  // GetClientDimEx(hWnd).first / 40 is ball radius
-		int posy = (CurrentClientHeight / 2 - CurrentClientWidth / 40);
+		float posx = (CurrentClientWidth / (float)2.0 - CurrentClientWidth / (float)40.0);  // GetClientDimEx(hWnd).first / 40 is ball radius
+		float posy = (CurrentClientHeight / (float)2.0 - CurrentClientWidth / (float)40.0);
 		Ball.SetPos(posx, posy);  // Setting ball postion to the middle of the screen
 	}
 	else
 	{
-		int posx = (CurrentClientWidth / 2 - CurrentClientWidth / 40);  // GetClientDimEx(hWnd).first / 40 is ball radius
-		int posy = (CurrentClientHeight / 2 - CurrentClientWidth / 40);
+		float posx = (CurrentClientWidth / (float)2 - CurrentClientWidth / (float)40);  // GetClientDimEx(hWnd).first / 40 is ball radius
+		float posy = (CurrentClientHeight / (float)2 - CurrentClientWidth / (float)40);
 		Ball.SetPos(posx, posy);  // Setting ball postion to the middle of the screen
 	}
 	
@@ -233,8 +231,8 @@ void Game::SpawnBall(const HWND& hWnd, bool direction)   // function for spawnin
 	std::uniform_int_distribution<int> GenerateXVel(CurrentClientWidth/10, CurrentClientWidth/10*2);
 	std::uniform_int_distribution<int> GenerateYVel(CurrentClientHeight/10, CurrentClientHeight/10*2);
 
-	float XVel = -(GenerateXVel(rng) / 100.0);
-	float YVel = -(GenerateYVel(rng) / 100.0);
+	float XVel = -(GenerateXVel(rng) / (float)100.0);
+	float YVel = -(GenerateYVel(rng) / (float)100.0);
 	
 	if (direction == true)
 	{
@@ -260,8 +258,8 @@ std::pair<int, int> Game::GetClientDimEx(const HWND& hWnd)       // extended fun
 	RECT ClientRect;
 	::GetClientRect(hWnd, &ClientRect);
 
-	DWORD dwStyle = GetWindowLongPtr(hWnd, GWL_STYLE);
-	DWORD dwExStyle = GetWindowLongPtr(hWnd, GWL_EXSTYLE);
+	DWORD dwStyle = (DWORD)GetWindowLongPtr(hWnd, GWL_STYLE);
+	DWORD dwExStyle = (DWORD)GetWindowLongPtr(hWnd, GWL_EXSTYLE);
 
 	AdjustWindowRectEx(&ClientRect, dwStyle, FALSE, dwExStyle);
 
