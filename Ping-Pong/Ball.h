@@ -5,20 +5,20 @@
 class Ball
 {
 public:
-	void MoveBall();
 	void DrawBall(const HDC& hdc, float x, float y);
 	void DeleteBall(const HDC& hdc, float x, float y);
+	void MoveBall();
 	void IncreaseSpeed();
-	void OutputVel() const;  // function for debugging
 	void SwitchYVel();
 	void SwitchXVel();
+	int GetRadius() const;
 	void SetVel(float xvel, float yvel);
 	void SetPos(float x, float y);
 	void SetRadius(int Radius);
 	void SetSpeed(float speed);
-	int GetRadius() const;
 	std::pair<float, float> GetPos() const;
-	std::pair<float, float> GetOldPos() const;   
+	std::pair<float, float> GetOldPos() const; 
+	void OutputVel() const;  // function for debugging  
 private:
 	int BallRadius;
 	float BallVel[2];

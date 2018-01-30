@@ -5,14 +5,10 @@ void Paddle::DrawPaddle(const HDC& hdc, int x, int y)
 	Rectangle(hdc, x, y, x + Width, y + Height);
 }
 
-void Paddle::SetWidth(int CurrentWidth)
+void Paddle::MoveUp()
 {
-	Width = CurrentWidth;
-}
-
-void Paddle::SetHeight(int CurrentHeight)
-{
-	Height = CurrentHeight;
+	oldy = y;
+	y = y - Speed;
 }
 
 void Paddle::MoveDown()
@@ -21,15 +17,14 @@ void Paddle::MoveDown()
 	y = y + Speed;
 }
 
-void Paddle::MoveUp()
+void Paddle::SetWidth(int CurrentWidth)
 {
-	oldy = y;
-	y = y - Speed;
+	Width = CurrentWidth;
 }
 
-int Paddle::GetPos() const
+void Paddle::SetHeight(int CurrentHeight)
 {
-	return y;
+	Height = CurrentHeight;
 }
 
 void Paddle::SetSpeed(float speed)
@@ -43,11 +38,6 @@ void Paddle::SetFlag(bool up, bool down)
 	MoveD = down;
 }
 
-int Paddle::GetOldPos() const
-{
-	return oldy;
-}
-
 int Paddle::GetWidth() const
 {
 	return Width;
@@ -56,6 +46,16 @@ int Paddle::GetWidth() const
 int Paddle::GetHeight() const
 {
 	return Height;
+}
+
+int Paddle::GetPos() const
+{
+	return y;
+}
+
+int Paddle::GetOldPos() const
+{
+	return oldy;
 }
 
 std::pair<bool, bool> Paddle::GetFlag() const

@@ -11,16 +11,12 @@ public:
 	void DrawBall(const HDC& hdc, const HWND& hWnd);
 	void DrawLines(const HDC& hdc, const HWND& hWnd);
 	void DrawScores(const HDC& hdc, const HWND& hWnd);
-	void MoveRPDown(const HWND& hWnd);
-	void MoveRPUp(const HWND& hWnd);
-	void MoveLPDown(const HWND& hWnd);
-	void MoveLPUp(const HWND& hWnd);
-	void UpdateBall(const HWND& hWnd);
-	void UpdatePaddle(const HWND& hWnd);
-	void SpawnBall(const HWND& hWnd, bool direction);
 	void SetSpeed(const HWND& hWnd);
 	void SetRightFlag(bool RightUp, bool RightDown);
 	void SetLeftFlag(bool LeftUp, bool LeftDown);
+	void UpdateBall(const HWND& hWnd);
+	void UpdatePaddle(const HWND& hWnd);
+	void SpawnBall(const HWND& hWnd, bool direction);
 	std::pair<int, int> GetClientDim(const HWND& hWnd);
 	std::pair<int, int> GetClientDimEx(const HWND& hWnd);
 private:
@@ -28,21 +24,14 @@ private:
 	static constexpr COLORREF Black = (RGB(0, 0, 0));
 	static constexpr COLORREF Red = (RGB(255, 0, 0));
 	bool newGame;
-	bool LPD;
-	bool LPU;
-	bool RPD;
-	bool RPU;
 	int LeftScore;
 	int RightScore;
 	HFONT ScoreFont;
 	LOGFONT logFont;
-	std::string LeftScoreNumber;
-	std::string RightScoreNumber;
 	std::random_device rd;      // Will be used to obtain a seed for the random number engine
 	RECT RightPaddleRect;
 	RECT LeftPaddleRect;
-	RECT BallRect;
-	RECT OldBallRect;
+	RECT FieldRect;
 	Paddle LeftPaddle;
 	Paddle RightPaddle;
 	Ball Ball;

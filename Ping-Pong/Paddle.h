@@ -11,11 +11,11 @@ public:
 	void SetWidth(int Width);
 	void SetHeight(int Height);
 	void SetSpeed(float speed);
+	void SetFlag(bool up, bool down);
 	int GetWidth() const;
 	int GetHeight() const;
 	int GetPos() const;
 	int GetOldPos() const;
-	void SetFlag(bool up, bool down);
 	std::pair<bool, bool> GetFlag() const;
 	std::pair<int, int> GetClientDim(const HWND& hWnd);
 private:

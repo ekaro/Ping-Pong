@@ -103,10 +103,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 		PingPong.NewGame(hWnd);
 
-	case WM_COMMAND:
-
-		break;
-
 	case WM_PAINT:
 
 		hdc = BeginPaint(hWnd, &ps);
@@ -124,9 +120,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 
 	case WM_LBUTTONDOWN:
+		
 		xPos = GET_X_LPARAM(lParam);
 		yPos = GET_Y_LPARAM(lParam);
-
 		break;
 
 	case WM_SIZE:
@@ -142,7 +138,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 				PingPong.SetRightFlag(true, false);   // setting flag works similarly as (GetAsyncKeyState(0x26) & 0x8000)
 				break;
-			
+
 			case 0x28:
 				
 				PingPong.SetRightFlag(false, true);

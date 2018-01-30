@@ -74,8 +74,8 @@ void Game::DrawLines(const HDC & hdc, const HWND & hWnd)
 
 void Game::DrawScores(const HDC & hdc, const HWND & hWnd)
 {
-	LeftScoreNumber = std::to_string(LeftScore);
-	RightScoreNumber = std::to_string(RightScore);
+	std::string LSNum = std::to_string(LeftScore);
+	std::string RSNum = std::to_string(RightScore);
 
 	int CurrentHeight = GetClientDim(hWnd).second;
 	int FontHeight = CurrentHeight / 10;
@@ -88,93 +88,37 @@ void Game::DrawScores(const HDC & hdc, const HWND & hWnd)
 	SetBkColor(hdc, RGB(0, 0, 0));
 	SelectObject(hdc, ScoreFont);
 
-	TextOut(hdc, GetClientDim(hWnd).first / 4, GetClientDim(hWnd).second / 20, LeftScoreNumber.c_str(), _tcslen(LeftScoreNumber.c_str()));        // Draw left score
-	TextOut(hdc, GetClientDim(hWnd).first / 4 * 3, GetClientDim(hWnd).second / 20, RightScoreNumber.c_str(), _tcslen(RightScoreNumber.c_str()));  // Draw right score
+	TextOut(hdc, GetClientDim(hWnd).first / 4, GetClientDim(hWnd).second / 20, LSNum.c_str(), _tcslen(LSNum.c_str()));        // Draw left score
+	TextOut(hdc, GetClientDim(hWnd).first / 4 * 3, GetClientDim(hWnd).second / 20, RSNum.c_str(), _tcslen(RSNum.c_str()));  // Draw right score
 
 	DeleteObject(ScoreFont);    // Delete font after drawing scores to prevent memory leak
 }
 
-std::pair<int, int> Game::GetClientDim(const HWND& hWnd)         // function for getting current client dimensions
+void Game::SetRightFlag(bool RightUp, bool RightDown)
 {
-	RECT ClientRect;
-	::GetClientRect(hWnd, &ClientRect);
-
-	int CurrentWidth = ClientRect.right - ClientRect.left;
-	int CurrentHeight = ClientRect.bottom - ClientRect.top;
-
-	return { CurrentWidth, CurrentHeight };
+	RightPaddle.SetFlag(RightUp, RightDown);
 }
 
-std::pair<int, int> Game::GetClientDimEx(const HWND& hWnd)       // extended function for precise measurement of current client dimensions
+void Game::SetLeftFlag(bool LeftUp, bool LeftDown)
 {
-	RECT ClientRect;
-	::GetClientRect(hWnd, &ClientRect);
-
-	DWORD dwStyle = GetWindowLongPtr(hWnd, GWL_STYLE);
-	DWORD dwExStyle = GetWindowLongPtr(hWnd, GWL_EXSTYLE);
-
-	AdjustWindowRectEx(&ClientRect, dwStyle, FALSE, dwExStyle);
-
-	int CurrentWidth = ClientRect.right - ClientRect.left;
-	int CurrentHeight = ClientRect.bottom - ClientRect.top;
-
-	return { CurrentWidth, CurrentHeight };
+	LeftPaddle.SetFlag(LeftUp, LeftDown);
 }
 
-void Game::MoveRPDown(const HWND& hWnd)   // function for moving right paddle down
+void Game::SetSpeed(const HWND& hWnd)
 {
-	if (RightPaddle.GetPos() <= GetClientDim(hWnd).second - RightPaddle.GetHeight() - 10)
-	{
-		RightPaddle.MoveDown();
-
-		RightPaddleRect = { GetClientDim(hWnd).first - RightPaddle.GetWidth(), 0, GetClientDim(hWnd).first, GetClientDim(hWnd).second };
-
-		InvalidateRect(hWnd, &RightPaddleRect, false);
-	}
-}
-
-void Game::MoveRPUp(const HWND& hWnd)    // function for moving right paddle up
-{
-	if (RightPaddle.GetPos() >= 10)
-	{
-		RightPaddle.MoveUp();
-
-		RightPaddleRect = { GetClientDim(hWnd).first - RightPaddle.GetWidth(), 0, GetClientDim(hWnd).first, GetClientDim(hWnd).second };
-
-		InvalidateRect(hWnd, &RightPaddleRect, false);
-	}
-}
-
-void Game::MoveLPDown(const HWND& hWnd)   // function for moving left paddle down
-{
-	if (LeftPaddle.GetPos() <= GetClientDim(hWnd).second - LeftPaddle.GetHeight() - 10)
-	{
-		LeftPaddle.MoveDown();
-
-		LeftPaddleRect = { 0, 0, LeftPaddle.GetWidth(), GetClientDim(hWnd).second };
-
-		InvalidateRect(hWnd, &LeftPaddleRect, false);
-	}
-}
-
-void Game::MoveLPUp(const HWND& hWnd)    // function for moving left paddle up
-{
-	if (LeftPaddle.GetPos() >= 10)
-	{
-		LeftPaddle.MoveUp();
-
-		LeftPaddleRect = { 0, 0, LeftPaddle.GetWidth(), GetClientDim(hWnd).second };
-
-		InvalidateRect(hWnd, &LeftPaddleRect, false);
-	}
+	float PaddleSpeed = GetClientDim(hWnd).second / 100.0;
+	float BallSpeed = (GetClientDim(hWnd).first + GetClientDim(hWnd).second) / 10000.0;
+	LeftPaddle.SetSpeed(PaddleSpeed);
+	RightPaddle.SetSpeed(PaddleSpeed);
+	Ball.SetSpeed(BallSpeed);
 }
 
 void Game::UpdateBall(const HWND& hWnd)        // ball movement logic
 {
 	Ball.MoveBall();
 	Ball.OutputVel();
-	BallRect = { LeftPaddle.GetWidth(), 0, GetClientDim(hWnd).first - RightPaddle.GetWidth(), GetClientDim(hWnd).second };
-	InvalidateRect(hWnd, &BallRect, false);
+	FieldRect = { LeftPaddle.GetWidth(), 0, GetClientDim(hWnd).first - RightPaddle.GetWidth(), GetClientDim(hWnd).second };
+	InvalidateRect(hWnd, &FieldRect, false);
 
 	if (Ball.GetPos().second <= 0)
 	{
@@ -219,43 +163,52 @@ void Game::UpdateBall(const HWND& hWnd)        // ball movement logic
 void Game::UpdatePaddle(const HWND& hWnd)
 {
 	if (LeftPaddle.GetFlag().first)
+	{
+		if (LeftPaddle.GetPos() >= 10)
 		{
-			MoveLPUp(hWnd);
+			LeftPaddle.MoveUp();
+
+			LeftPaddleRect = { 0, 0, LeftPaddle.GetWidth(), GetClientDim(hWnd).second };
+
+			InvalidateRect(hWnd, &LeftPaddleRect, false);
 		}
+	}
 	
 	if (LeftPaddle.GetFlag().second)
+	{
+		if (LeftPaddle.GetPos() <= GetClientDim(hWnd).second - LeftPaddle.GetHeight() - 10)
 		{
-			MoveLPDown(hWnd);
+			LeftPaddle.MoveDown();
+
+			LeftPaddleRect = { 0, 0, LeftPaddle.GetWidth(), GetClientDim(hWnd).second };
+
+			InvalidateRect(hWnd, &LeftPaddleRect, false);
 		}
+	}
 
 	if (RightPaddle.GetFlag().first)
+	{
+		if (RightPaddle.GetPos() >= 10)
 		{
-			MoveRPUp(hWnd);
+			RightPaddle.MoveUp();
+
+			RightPaddleRect = { GetClientDim(hWnd).first - RightPaddle.GetWidth(), 0, GetClientDim(hWnd).first, GetClientDim(hWnd).second };
+
+			InvalidateRect(hWnd, &RightPaddleRect, false);
 		}
+	}
 
 	if (RightPaddle.GetFlag().second)
+	{
+		if (RightPaddle.GetPos() <= GetClientDim(hWnd).second - RightPaddle.GetHeight() - 10)
 		{
-			MoveRPDown(hWnd);
+			RightPaddle.MoveDown();
+
+			RightPaddleRect = { GetClientDim(hWnd).first - RightPaddle.GetWidth(), 0, GetClientDim(hWnd).first, GetClientDim(hWnd).second };
+
+			InvalidateRect(hWnd, &RightPaddleRect, false);
 		}
-}
-
-void Game::SetRightFlag(bool RightUp, bool RightDown)
-{
-	RightPaddle.SetFlag(RightUp, RightDown);
-}
-
-void Game::SetLeftFlag(bool LeftUp, bool LeftDown)
-{
-	LeftPaddle.SetFlag(LeftUp, LeftDown);
-}
-
-void Game::SetSpeed(const HWND& hWnd)
-{
-	float PaddleSpeed = (GetClientDim(hWnd).first + GetClientDim(hWnd).second) / 100.0;
-	float BallSpeed = (GetClientDim(hWnd).first + GetClientDim(hWnd).second) / 10000.0;
-	LeftPaddle.SetSpeed(PaddleSpeed);
-	RightPaddle.SetSpeed(PaddleSpeed);
-	Ball.SetSpeed(BallSpeed);
+	}
 }
 
 void Game::SpawnBall(const HWND& hWnd, bool direction)   // function for spawning ball in the center
@@ -289,4 +242,31 @@ void Game::SpawnBall(const HWND& hWnd, bool direction)   // function for spawnin
 	}
 	
 	Ball.SetVel(XVel, YVel);
+}
+
+std::pair<int, int> Game::GetClientDim(const HWND& hWnd)         // function for getting current client dimensions
+{
+	RECT ClientRect;
+	::GetClientRect(hWnd, &ClientRect);
+
+	int CurrentWidth = ClientRect.right - ClientRect.left;
+	int CurrentHeight = ClientRect.bottom - ClientRect.top;
+
+	return { CurrentWidth, CurrentHeight };
+}
+
+std::pair<int, int> Game::GetClientDimEx(const HWND& hWnd)       // extended function for precise measurement of current client dimensions
+{
+	RECT ClientRect;
+	::GetClientRect(hWnd, &ClientRect);
+
+	DWORD dwStyle = GetWindowLongPtr(hWnd, GWL_STYLE);
+	DWORD dwExStyle = GetWindowLongPtr(hWnd, GWL_EXSTYLE);
+
+	AdjustWindowRectEx(&ClientRect, dwStyle, FALSE, dwExStyle);
+
+	int CurrentWidth = ClientRect.right - ClientRect.left;
+	int CurrentHeight = ClientRect.bottom - ClientRect.top;
+
+	return { CurrentWidth, CurrentHeight };
 }
