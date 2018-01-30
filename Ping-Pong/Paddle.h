@@ -14,6 +14,7 @@ public:
 	void SetFlag(bool up, bool down);
 	int GetWidth() const;
 	int GetHeight() const;
+	float GetSpeed() const;
 	int GetPos() const;
 	int GetOldPos() const;
 	std::pair<bool, bool> GetFlag() const;

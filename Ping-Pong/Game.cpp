@@ -116,7 +116,7 @@ void Game::SetSpeed(const HWND& hWnd)
 void Game::UpdateBall(const HWND& hWnd)        // ball movement logic
 {
 	Ball.MoveBall();
-	Ball.OutputVel();
+	//Ball.OutputVel();
 	FieldRect = { LeftPaddle.GetWidth(), 0, GetClientDim(hWnd).first - RightPaddle.GetWidth(), GetClientDim(hWnd).second };
 	InvalidateRect(hWnd, &FieldRect, false);
 
@@ -164,7 +164,7 @@ void Game::UpdatePaddle(const HWND& hWnd)
 {
 	if (LeftPaddle.GetFlag().first)
 	{
-		if (LeftPaddle.GetPos() >= 10)
+		if (LeftPaddle.GetPos() >= 1)
 		{
 			LeftPaddle.MoveUp();
 
@@ -176,7 +176,7 @@ void Game::UpdatePaddle(const HWND& hWnd)
 	
 	if (LeftPaddle.GetFlag().second)
 	{
-		if (LeftPaddle.GetPos() <= GetClientDim(hWnd).second - LeftPaddle.GetHeight() - 10)
+		if (LeftPaddle.GetPos() <= GetClientDim(hWnd).second - LeftPaddle.GetHeight())
 		{
 			LeftPaddle.MoveDown();
 
@@ -188,7 +188,7 @@ void Game::UpdatePaddle(const HWND& hWnd)
 
 	if (RightPaddle.GetFlag().first)
 	{
-		if (RightPaddle.GetPos() >= 10)
+		if (RightPaddle.GetPos() >= 1)
 		{
 			RightPaddle.MoveUp();
 
@@ -200,7 +200,7 @@ void Game::UpdatePaddle(const HWND& hWnd)
 
 	if (RightPaddle.GetFlag().second)
 	{
-		if (RightPaddle.GetPos() <= GetClientDim(hWnd).second - RightPaddle.GetHeight() - 10)
+		if (RightPaddle.GetPos() <= GetClientDim(hWnd).second - RightPaddle.GetHeight())
 		{
 			RightPaddle.MoveDown();
 

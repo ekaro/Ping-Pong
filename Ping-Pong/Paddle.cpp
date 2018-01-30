@@ -48,6 +48,11 @@ int Paddle::GetHeight() const
 	return Height;
 }
 
+float Paddle::GetSpeed() const
+{
+	return Speed;
+}
+
 int Paddle::GetPos() const
 {
 	return y;
