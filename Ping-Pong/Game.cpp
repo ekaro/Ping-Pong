@@ -105,7 +105,7 @@ void Game::SetLeftFlag(bool LeftUp, bool LeftDown)
 void Game::SetSpeed(const HWND& hWnd)
 {
 	float PaddleSpeed = GetClientDim(hWnd).second / (float)100.0;
-	float BallSpeed = (GetClientDim(hWnd).first + GetClientDim(hWnd).second) / (float)10000.0;
+	float BallSpeed = (GetClientDim(hWnd).first + GetClientDim(hWnd).second) / (float)1000.0;
 	LeftPaddle.SetSpeed(PaddleSpeed);
 	RightPaddle.SetSpeed(PaddleSpeed);
 	Ball.SetSpeed(BallSpeed);
